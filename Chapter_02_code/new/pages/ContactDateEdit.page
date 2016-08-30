@@ -1,0 +1,24 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 2_2
+
+	Page that allows a component to update attributes
+	 
+ -->
+<apex:page standardController="Contact" extensions="ContactDateEditExt">
+  <apex:outputField value="{!Contact.BirthDate}" rendered="false" />
+  <apex:sectionHeader title="Contact Edit" subtitle="{!contact.Name}" />
+  <apex:form >
+    <apex:pageBlock mode="mainDetail">
+      <apex:pageBlockButtons >
+        <apex:commandButton value="Save" action="{!save}" />
+        <apex:commandButton value="Cancel" action="{!cancel}" />
+      </apex:pageBlockButtons>
+      <apex:pageBlockSection title="Name">
+        <apex:inputField value="{!Contact.FirstName}" />
+        <apex:inputField value="{!Contact.LastName}" />
+      </apex:pageBlockSection>
+      <c:DateEdit dateContainerAtt="{!dob}" title="Date of Birth" />
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

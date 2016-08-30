@@ -1,0 +1,21 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 6_5
+
+	Visualforce page containing a stacked bar chart
+	 
+ -->
+<apex:page controller="StackedBarChartController">
+    <p style="font-size:18px; font-weight: bold;">Opportunity Value - Last 12 Months - executed on&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}"><apex:param value="{!TODAY()}"/></apex:outputText></p>
+    <div style="margin-left: auto; margin-right: auto">
+      <apex:chart height="450" width="550" data="{!chartData}">
+       <apex:axis type="Category" position="bottom" fields="name"
+            title="Month" />
+       <apex:axis type="Numeric" position="left" fields="wonTotal,lostTotal"
+            title="Amount" grid="true"/>
+       <apex:barSeries colorSet="#A00,#00A" orientation="vertical" axis="bottom" xField="name" yField="lostTotal,wonTotal" 
+       				title="Lost, Won" stacked="true"/>
+       <apex:legend position="bottom"/>
+     </apex:chart>
+   </div>
+</apex:page>

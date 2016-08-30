@@ -1,0 +1,47 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 4_9
+
+	Changing page layout based on the user input
+	 
+ -->
+<apex:page StandardController="Account" extensions="ChangeContentExt">
+  <apex:sectionHeader title="Reactive Create Account" />
+  <apex:form >
+  
+    <apex:pageMessages />
+    
+    <apex:pageBlock mode="mainDetail" title="Account" id="acc_block">
+      <apex:pageBlockButtons >
+        <apex:commandButton value="Save" action="{!save}"/>
+        <apex:commandButton value="Cancel" action="{!cancel}"/>
+      </apex:pageBlockButtons>
+      
+      <apex:pageBlockSection title="Detail">
+        <apex:inputField value="{!Account.Name}"/>
+        <apex:inputField value="{!Account.AccountNumber}"/>
+        <apex:inputField value="{!Account.Phone}"/>
+        <apex:inputField value="{!Account.Fax}"/>
+      </apex:pageBlockSection>
+      
+      <apex:actionRegion >
+        <apex:pageBlockSection >
+          <apex:inputField value="{!Account.Type}">
+            <apex:actionSupport event="onchange" action="{!typeChanged}" rerender="customersection" />
+          </apex:inputField>
+          <apex:inputField value="{!Account.Description}"/>
+        </apex:pageBlockSection>
+      </apex:actionRegion>
+      
+      <apex:outputPanel id="customersection">
+        <!-- conditionally rendered for customers only -->
+        <apex:pageBlockSection title="Customer Information" rendered="{!showCustomerSection}">
+          <apex:inputField value="{!Account.NumberOfEmployees}"/>
+          <apex:inputField value="{!Account.Rating}"/>
+          <apex:inputField value="{!Account.Industry}"/>
+        </apex:pageBlockSection>
+      </apex:outputPanel>
+      
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

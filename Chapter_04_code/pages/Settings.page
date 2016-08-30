@@ -1,0 +1,22 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 4_5
+
+	Maintaining custom settings
+	 
+ -->
+<apex:page controller="SettingsController">
+  <apex:form >
+    <apex:pageMessages />
+    <apex:pageBlock title="Settings">
+      <apex:pageBlockButtons >
+        <apex:commandButton value="Save" action="{!Save}" />
+        <apex:commandButton value="Cancel" action="/home/home.jsp" />
+      </apex:pageBlockButtons>
+      <apex:pageBlockSection columns="1">
+        <apex:inputField value="{!settings.In_Maintenance__c}" />
+        <apex:inputField style="width: 80%" value="{!settings.Message__c}" />
+      </apex:pageBlockSection>
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

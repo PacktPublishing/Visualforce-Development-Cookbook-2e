@@ -1,0 +1,70 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 3_5
+
+	Custom lookup popup
+	 
+ -->
+<apex:page controller="LookupController" sidebar="false" showheader="false" standardstylesheets="true">
+<head>
+    <title>Cookbook Lookup</title>
+</head>
+
+  <apex:messages />
+  <apex:form id="form" >  
+     <div style="width 90%; margin-left:10px">
+        <div style='text-align:center; font-size:20px; font-weight:bold'>Lookup</div>
+        <p>Please enter the search term below and click the 'Go' button.  This will
+           execute a search across all text fields</p>
+        <p><span style="color:red">IMPORTANT: </span>Please ensure you enter at least two characters</p>
+        <hr/>
+        <span><apex:inputText value="{!query}" id="query"/></span> 
+        <span><apex:commandButton value="Go" action="{!runQuery}"/></span>
+        
+        <apex:pageBlock mode="mainDetail" rendered="{!doneLookup}">
+          <apex:pageBlockButtons location="bottom">
+            <apex:commandButton value="Close Window" onclick="CloseWindow(); return false;" />
+          </apex:pageBlockButtons>
+          <apex:pageBlockSection columns="1">
+              <apex:pageBlockTable value="{!accounts}" var="account">
+                <apex:column headerValue="Name">
+                  <apex:outputLink value="#" onclick="fillIn('{!account.Name}', '{!account.id}')">{!account.Name}</apex:outputLink>       
+                </apex:column>
+                <apex:column headerValue="Street" value="{!account.BillingStreet}"/>
+                <apex:column headerValue="City" value="{!account.BillingCity}"/>
+                <apex:column headerValue="Postcode" value="{!account.BillingPostalCode}"/>
+              </apex:pageBlockTable>    
+          </apex:pageBlockSection>
+        </apex:pageBlock>
+     </div>
+   </apex:form>
+   
+   <!-- JavaScript to managge the interaction with the parent page -->
+   <script language="javascript">
+   window.onload = new function() 
+   { 
+      // bring popup window to front
+      window.focus(); 
+      var ele=document.getElementById('{!$Component.form.block.section.query}');
+      if (ele)
+      {
+         ele.focus();
+      }
+   }
+   
+   function fillIn(name, id)
+   {
+      var winMain=window.opener;
+      if (null==winMain)
+      {
+         winMain=window.parent.opener;
+      }
+      var ele=winMain.document.getElementById('{!$CurrentPage.parameters.namefield}');
+      ele.value=name;
+      ele=winMain.document.getElementById('{!$CurrentPage.parameters.idfield}');
+      ele.value=id;
+      winMain.closeLookupPopup();
+   }
+   </script>
+   
+</apex:page>

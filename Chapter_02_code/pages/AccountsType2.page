@@ -1,0 +1,19 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 2_6
+
+	Page that utilises a custom component to set a value into the component
+	 
+ -->
+<apex:page controller="AccountsTypeController" showheader="false" sidebar="false" tabstyle="Account">
+  <c:SetControllerProperty from="Customer - Channel" to="{!accType}" />
+  <c:SetControllerProperty from="5" to="{!max}" />
+  
+  <apex:pageBlock title="Accounts: {!accType}">
+    <apex:pageBlockTable value="{!accounts}" var="acc">
+      <apex:column value="{!acc.Name}" />
+      <apex:column value="{!acc.BillingState}" />
+      <apex:column value="{!acc.Phone}" />
+    </apex:pageBlockTable>
+  </apex:pageBlock>
+</apex:page>

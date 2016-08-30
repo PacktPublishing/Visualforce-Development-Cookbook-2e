@@ -1,0 +1,36 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 8_8
+
+	Conditional rendering in templates
+	 
+ -->
+<apex:page applyHtmlTag="false" applyBodyTag="false" sidebar="false" showHeader="false" standardStyleSheets="false">
+  <apex:composition template="CookbookTemplateV4">
+    <apex:define name="headerOverride">
+      <apex:variable var="header" value="custom"/>
+    </apex:define> 
+    <apex:define name="customHeaderText">
+      Custom Header
+    </apex:define> 
+    <apex:define name="title">
+      Force.com Sites Recipe 8
+    </apex:define>
+    <apex:define name="body">
+        <div class="slds-grid slds-wrap slds-m-around--large">
+           <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2">
+             <div class="slds-text-heading--small slds-m-around--medium">Detail</div>
+             <div class="slds-text-body--regular slds-m-around--medium">
+             This is the second page for the Conditional Rendering in Templates recipe.</div>
+          </div>
+           <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2">
+             <div class="slds-text-heading--small slds-m-around--medium">Notes</div>
+             <div class="slds-text-body--regular slds-m-around--medium">
+               The 'Custom Header' text above is supplied by this page, and overrides the default value.<br/>
+               For an example of the default, click <a href="/apex/StandardHeader">here</a>.
+             </div>
+          </div>
+        </div>
+    </apex:define> 
+  </apex:composition>
+</apex:page>

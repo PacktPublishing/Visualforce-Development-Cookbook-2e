@@ -1,0 +1,22 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 4_7
+
+	Using wrapper classes
+	 
+ -->
+<apex:page controller="SelectOpportunitiesController">
+  <apex:form >
+    <apex:pageBlock title="Opportunities">
+      <apex:pageBlockTable value="{!opps}" var="wrap">
+        <apex:column style="width:10%" headerValue="">
+          <apex:inputCheckbox value="{!wrap.selected}"/>
+        </apex:column>
+        <apex:column style="width:10%" value="{!wrap.opp.Name}" />
+        <apex:column style="width:20%" value="{!wrap.opp.StageName}" />
+      </apex:pageBlockTable>
+      <apex:commandButton value="Remove from List" action="{!removeSelected}"/>
+      <apex:commandButton value="Reset" action="{!reset}"/>
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

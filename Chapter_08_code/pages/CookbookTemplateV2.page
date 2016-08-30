@@ -1,0 +1,80 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 8_6
+
+	Website template with header menu
+	 
+ -->
+<apex:page applyHtmlTag="false" applyBodyTag="false" sidebar="false" showHeader="false" standardStyleSheets="false">
+  <html>
+    <head>
+      <title>
+        <apex:insert name="title" />
+      </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+      <!-- SLDS -->
+      <apex:stylesheet value="{!URLFOR($Resource.SLDS_2_0_2, '/assets/styles/salesforce-lightning-design-system.min.css')}"/>
+    </head>
+    <body>
+    
+      <apex:variable var="page" value="" />
+      <apex:insert name="page" />
+
+       <div class="slds">
+        <div class="slds-page-header" role="banner">
+          <div class="slds-media">
+		    <div class="slds-media__body">
+              <p class="slds-page-header__title slds-truncate slds-align-middle" title="Demo Site">Demo Site</p>
+        	  <p class="slds-text-body--small slds-page-header__info">Visualforce Development Cookbook</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slds-tabs--default">
+          <ul class="slds-tabs--default__nav" role="tablist">
+            <li class="slds-tabs--default__item slds-text-heading--label {!IF(page=='home','slds-active','')}" title="Home" role="presentation"><a class="slds-tabs--default__link" href="/Home" role="tab" tabindex="0" aria-selected="{!IF(page=='home','true','false')}" aria-controls="tab-home">Home</a></li>
+             <li class="slds-tabs--default__item slds-text-heading--label {!IF(page=='about','slds-active','')}" title="About" role="presentation"><a class="slds-tabs--default__link" href="/About" role="tab" tabindex="0" aria-selected="{!IF(page=='about','true','false')}" aria-controls="tab-about">About</a></li>
+            <li class="slds-tabs--default__item slds-text-heading--label {!IF(page=='contact','slds-active','')}" title="Contact" role="presentation"><a class="slds-tabs--default__link" href="/Contact" role="tab" tabindex="0" aria-selected="{!IF(page=='contact','true','false')}" aria-controls="tab-contact">Contact</a></li>
+            <li class="slds-tabs--default__item slds-text-heading--label {!IF(page=='links','slds-active','')}" title="Link" role="presentation"><a class="slds-tabs--default__link" href="/Links" role="tab" tabindex="0" aria-selected="{!IF(page=='links','true','false')}" aria-controls="tab-links">Links</a></li>
+          </ul>
+        </div>
+        
+        <apex:insert name="body" />
+       
+        <div class="slds-m-bottom--x-large" />
+        
+        <table class="slds-table">
+          <tr>
+            <td>
+              <b>Lightning</b>
+            </td>
+            <td>
+              Built using the Salesforce Lightning Design System.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <b>Responsive</b>
+            </td>
+            <td>
+              Resize the browser window and see what happens
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <b>Templated</b>
+            </td>
+            <td>
+              This section came from the template
+            </td>
+          </tr>
+        </table>
+      
+        <div class="slds-text-align--center slds-m-top--large">
+          <div class="slds-text-body--small"><span style="font-style: italic">Salesforce, salesforce.com, Sales Cloud, Service Cloud, Collaboration Cloud, Custom Cloud, Force.com and Chatter are trademarks of salesforce.com, inc.</span></div>
+        </div>
+      </div>
+      
+      </body>
+  </html>
+</apex:page>

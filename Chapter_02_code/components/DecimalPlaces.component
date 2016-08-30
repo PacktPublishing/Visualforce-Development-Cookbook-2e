@@ -1,0 +1,43 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 2_4
+
+	Component to display a decimal value with the number of decimal
+	places specified by the 'dp' attribute.
+	 
+ -->
+<apex:component >
+  <apex:attribute name="dp" description="The number of decimal places" type="String" required="no" default="0"/>
+  <apex:attribute name="value" description="The decimal value to output" type="Decimal" />
+  
+  <!-- 0 decimal places -->
+  <apex:outputPanel rendered="{!dp=='0'}">  
+     <apex:outputText rendered="{!AND(NOT(ISNULL(VALUE)), value>=0)}" value="{0, number, #,##0}"><apex:param value="{!value}"/></apex:outputText>
+     <apex:outputText rendered="{!AND(NOT(ISNULL(VALUE)), value<0)}" value="({0, number, #,##0})"><apex:param value="{!ABS(value)}"/></apex:outputText>
+  </apex:outputPanel>
+
+  <!-- 1 decimal place -->
+  <apex:outputPanel rendered="{!dp=='1'}">  
+     <apex:outputText rendered="{!AND(NOT(ISNULL(VALUE)), value>=0)}" value="{0, number, #,##0.0}"><apex:param value="{!value}"/></apex:outputText>
+     <apex:outputText rendered="{!AND(NOT(ISNULL(VALUE)), value<0)}" value="({0, number, #,##0.0})"><apex:param value="{!ABS(value)}"/></apex:outputText>
+  </apex:outputPanel>
+  
+  <!-- 2 decimal places -->
+  <apex:outputPanel rendered="{!dp=='2'}">  
+     <apex:outputText rendered="{!AND(NOT(ISNULL(VALUE)), value>=0)}" value="{0, number, #,##0.00}"><apex:param value="{!value}"/></apex:outputText>
+     <apex:outputText rendered="{!AND(NOT(ISNULL(VALUE)), value<0)}" value="({0, number, #,##0.00})"><apex:param value="{!ABS(value)}"/></apex:outputText>
+  </apex:outputPanel>
+  
+  <!-- 3 decimal places -->
+  <apex:outputPanel rendered="{!dp=='3'}">  
+     <apex:outputText rendered="{!AND(NOT(ISNULL(VALUE)), value>=0)}" value="{0, number, #,##0.000}"><apex:param value="{!value}"/></apex:outputText>
+     <apex:outputText rendered="{!AND(NOT(ISNULL(VALUE)), value<0)}" value="({0, number, #,##0.000})"><apex:param value="{!ABS(value)}"/></apex:outputText>
+  </apex:outputPanel>
+  
+  <!-- 4 decimal places -->
+  <apex:outputPanel rendered="{!dp=='4'}">  
+     <apex:outputText rendered="{!AND(NOT(ISNULL(VALUE)), value>=0)}" value="{0, number, #,##0.0000}"><apex:param value="{!value}"/></apex:outputText>
+     <apex:outputText rendered="{!AND(NOT(ISNULL(VALUE)), value<0)}" value="({0, number, #,##0.0000})"><apex:param value="{!ABS(value)}"/></apex:outputText>
+  </apex:outputPanel>
+  
+</apex:component>

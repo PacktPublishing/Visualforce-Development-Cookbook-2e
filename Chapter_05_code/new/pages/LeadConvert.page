@@ -1,0 +1,46 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 5_3
+
+	Custom convert lead page
+	 
+ -->
+<apex:page StandardController="Lead" extensions="LeadConvertExt">
+  <apex:form >
+    <apex:sectionHeader title="Convert Lead - {!Lead.FirstName} {!Lead.LastName}" />
+    <apex:pageBlock >
+      <apex:pageBlockButtons >
+        <apex:commandButton value="Convert" action="{!convertLead}"/>
+        <apex:commandButton value="Cancel" action="{!cancel}"/>
+      </apex:pageBlockButtons>
+      
+      <!-- general info -->
+      <apex:pageBlockSection title="General" columns="1">
+        <apex:inputField value="{!carrier.AccountId}"/>
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel value="New Account '{!Lead.Company}'" />
+          <apex:inputCheckbox value="{!newAccount}" />
+        </apex:pageBlockSectionItem>
+        <apex:inputField value="{!carrier.ContactId}"/>
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel value="New Contact '{!Lead.FirstName} {!Lead.LastName}'" />
+          <apex:inputCheckbox value="{!newContact}" />
+        </apex:pageBlockSectionItem>
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel value="Lead Status" />
+          <apex:selectList value="{!convertedStatus}">
+            <apex:selectOptions value="{!convertedOptions}" />
+          </apex:selectList>
+        </apex:pageBlockSectionItem>
+      </apex:pageBlockSection>
+      
+      <!-- opportunity info -->
+      <apex:pageBlockSection title="Opportunity" columns="1">
+        <apex:inputField value="{!opp.Name}" required="false" />
+        <apex:inputField value="{!opp.Amount}" required="false" />
+        <apex:inputField value="{!opp.StageName}" required="false" />
+      </apex:pageBlockSection>
+      
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

@@ -1,0 +1,17 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 10_5
+
+	Page whose controller generates debug logs
+	 
+ -->
+<apex:page controller="DebuggingController" tabstyle="Opportunity">
+  <apex:sectionHeader title="Debugging Visualforce" subtitle="Controller Generates Debug Log" />
+  <apex:pageBlock title="Oldest 10 Accounts">
+    <apex:pageBlockTable value="{!oldestAccounts}" var="acc">
+      <apex:column value="{!acc.Name}" />
+      <apex:column value="{!acc.Industry}" />
+      <apex:column value="{!acc.CreatedDate}" />
+    </apex:pageBlockTable>
+  </apex:pageBlock>
+</apex:page>

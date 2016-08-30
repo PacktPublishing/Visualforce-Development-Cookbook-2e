@@ -1,0 +1,26 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 8_5
+
+	Content page for website template
+	 
+ -->
+<apex:page applyHtmlTag="false" applyBodyTag="false" controller="SiteItemController" sidebar="false" showHeader="false" standardStyleSheets="false">
+  <apex:composition template="CookbookTemplate">
+    <apex:define name="title">
+      Force.com Sites Recipe 5
+    </apex:define>
+    <apex:define name="body">
+        <div class="slds-grid slds-wrap slds-m-around--large">
+         <apex:repeat value="{!items}" var="item">
+           <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-3">
+             <div class="slds-m-left--medium slds-m-right--medium">
+               <div class="slds-text-heading--small">{!item.Name}</div>
+               <div class="slds-text-body--regular slds-m-bottom--medium slds-m-top--medium">{!item.Detail__c}</div>
+             </div>
+           </div>
+         </apex:repeat>
+        </div>
+    </apex:define> 
+  </apex:composition>
+</apex:page>

@@ -1,0 +1,22 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 2_7
+
+	Page that utilises a custom multi-select component
+	 
+ -->
+<apex:page controller="AccountGroupController" tabstyle="Account">
+  <apex:form >
+    <apex:sectionHeader title="New" subtitle="New Account Group"/>
+    <apex:pageBlock title="Create Account Group">
+      <apex:pageBlockButtons >
+        <apex:commandButton value="Save" action="{!save}" />
+        <apex:commandButton value="Cancel" action="{!URLFOR($Action.Account.Tab, $ObjectType.Account)}" immediate="true" />
+      </apex:pageBlockButtons>
+      <apex:pageBlockSection title="Details">
+        <apex:inputField value="{!accountgroup.Name}" />
+      </apex:pageBlockSection>
+      <c:MultiSelectRelated options="{!accountOptions}" result="{!chosenAccounts}" title="Accounts" />
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

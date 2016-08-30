@@ -1,0 +1,28 @@
+<!--
+    
+    Visualforce Development Cookbook Recipe 10_5
+
+    Displays details of a collection of opportunities
+    using regular HTML elements. 
+     
+ -->
+<apex:page standardcontroller="Opportunity" recordSetVar="opps">
+  <apex:form >
+  
+  <table style="width:95%">
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Stage Name</th>
+    </tr>
+      <apex:repeat value="{!opps}" var="opp">
+  	    <tr>     
+	      <td><apex:outputField value="{!opp.Id}" /></td>
+	      <td><apex:inputField value="{!opp.Name}" /></td>
+	      <td><apex:outputField value="{!opp.StageName}" /></td>
+        </tr>
+      </apex:repeat>
+  </table>
+  
+  </apex:form>
+</apex:page>

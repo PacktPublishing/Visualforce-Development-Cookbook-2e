@@ -1,0 +1,64 @@
+<!--
+    
+    Visualforce Development Cookbook Recipe 9_6
+
+    Displaying a location in a map
+     
+ -->
+<apex:page applyHtmlTag="false" applyBodyTag="false" showHeader="false" docType="html-5.0"
+   standardController="Lead">
+  <html>
+    <head>
+      <!-- Include in Google's Maps API via JavaScript static resource -->
+      <!-- Set this API key to fix JavaScript errors in production --> <!--http://salesforcesolutions.blogspot.com/2013/01/integration-of-salesforcecom-and-google.html-->
+      <script type="text/javascript"
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5rDdgWxi6y2yIPjIOxHXj8doBVf4MfqM&sensor=false">
+      </script>
+    
+      <!-- Setup the map to take up the whole window -->
+      <style>
+         html, body { height: 100%; }
+         .page-map, .ui-content, #map-canvas { width: 100%; height:100%; padding: 0; }
+         #map-canvas { height: min-height: 100%; }
+      </style>
+      
+      <script>
+          function initialize() {
+              var lat, lon;
+              
+              // Set the map coordinates to the location the lead was captured
+              lat = {!Lead.Location__Latitude__s};
+              lon = {!Lead.Location__Longitude__s};
+              var result = [];
+              createMap(lat, lon, result);
+           }
+
+           function createMap(lat, lon){
+              // Get the map div, and center the map at the proper geolocation
+              var currentPosition = new google.maps.LatLng(lat,lon);
+              var mapDiv = document.getElementById('map-canvas');
+              var map = new google.maps.Map(mapDiv, {
+                                 center: currentPosition,
+                                 zoom: 15,
+                                 mapTypeId: google.maps.MapTypeId.ROADMAP
+              });
+            
+              // Set a marker for the lead location
+              var positionMarker = new google.maps.Marker({
+                                map: map,
+                                position: currentPosition,
+                                icon: 'http://maps.google.com/mapfiles/ms/micons/green.png'
+              });
+          }
+         
+          // Fire the initialize function when the window loads
+          google.maps.event.addDomListener(window, 'load', initialize);
+      </script>
+    </head> 
+    <body style="font-family: Arial; border: 0 none;">
+      <!-- google Maps will render into this div -->
+      <div id="map-canvas"></div>
+    </body>
+  </html>
+    
+</apex:page>

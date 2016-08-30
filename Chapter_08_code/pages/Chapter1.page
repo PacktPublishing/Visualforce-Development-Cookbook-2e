@@ -1,0 +1,90 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 8_7
+
+	Table of contents sidebar
+	 
+ -->
+<apex:page applyHtmlTag="false" applyBodyTag="false" sidebar="false" showHeader="false" standardStyleSheets="false">
+  <apex:composition template="CookbookTemplateV3">
+    <apex:define name="page">
+      <apex:variable var="page" value="home"/>
+    </apex:define> 
+    <apex:define name="title">
+      Force.com Sites Recipe 7
+    </apex:define>
+    <apex:define name="sidebar">
+      <ul class="slds-list--vertical">
+            <li><a href="/TableOfContents">Table of Contents</a></li>
+            <li class="slds-list__item">
+              <ul class="slds-list--vertical slds-is-nested">
+                <li><a href="#recipe1">Recipe 1</a></li>
+                <li><a href="#recipe2">Recipe 2</a></li>
+                <li><a href="#recipe3">Recipe 3</a></li>
+              </ul>
+            </li>
+      </ul>
+    </apex:define> 
+    <apex:define name="body">
+        <ul class="slds-list">
+          <li id="recipe1" class="slds-list__item slds-has-divider--bottom-space">
+            1. Overriding Standard Buttons
+          </li>
+          <li class="slds-list__item">
+            <ul class="slds-list--vertical slds-is-nested">
+            <li>
+              <div class="slds-m-bottom--small">How to Override a Standard record view to take the user to a Visualforce page</div>
+              <p>
+		  		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non pretium metus. 
+				In pulvinar vel lacus sed feugiat. Quisque a nunc tempus, dictum felis vel, ornare 
+				sapien. Mauris euismod iaculis imperdiet. Donec in nibh lectus. Aliquam erat volutpat. 
+				Curabitur laoreet felis est, eget aliquet est dignissim eget. Ut id elementum arcu. 
+				Nam lacinia commodo arcu ut sodales. Vestibulum tellus nunc, facilisis non mauris 
+				vitae, vulputate egestas augue. Aenean ipsum sapien, eleifend id mattis eu, placerat 
+				quis neque. Maecenas vel odio quam.            
+  	  	      </p>
+            </li>
+          </ul>
+        </li>
+        <li id="recipe2" class="slds-list__item slds-has-divider--bottom-space slds-m-top--medium">
+            2. Data Driven Styling
+        </li>
+        <li class="slds-list__item">
+          <ul class="slds-list--vertical slds-is-nested">
+            <li>
+              <div class="slds-m-bottom--small">Use an action poller to query the controller from the page until a condition is true, then disable the poller</div>
+              <p>
+		  		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non pretium metus. 
+				In pulvinar vel lacus sed feugiat. Quisque a nunc tempus, dictum felis vel, ornare 
+				sapien. Mauris euismod iaculis imperdiet. Donec in nibh lectus. Aliquam erat volutpat. 
+				Curabitur laoreet felis est, eget aliquet est dignissim eget. Ut id elementum arcu. 
+				Nam lacinia commodo arcu ut sodales. Vestibulum tellus nunc, facilisis non mauris 
+				vitae, vulputate egestas augue. Aenean ipsum sapien, eleifend id mattis eu, placerat 
+				quis neque. Maecenas vel odio quam.            
+  	  	      </p>
+            </li>
+          </ul>
+        </li>
+        <li id="recipe3" class="slds-list__item slds-has-divider--bottom-space slds-m-top--medium">
+            3. Turning off an Action Poller
+        </li>
+        <li class="slds-list__item">
+          <ul class="slds-list--vertical slds-is-nested">
+            <li>
+              <div class="slds-m-bottom--small">How to Override a Standard record view to take the user to a Visualforce page</div>
+              <p>
+		  		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non pretium metus. 
+				In pulvinar vel lacus sed feugiat. Quisque a nunc tempus, dictum felis vel, ornare 
+				sapien. Mauris euismod iaculis imperdiet. Donec in nibh lectus. Aliquam erat volutpat. 
+				Curabitur laoreet felis est, eget aliquet est dignissim eget. Ut id elementum arcu. 
+				Nam lacinia commodo arcu ut sodales. Vestibulum tellus nunc, facilisis non mauris 
+				vitae, vulputate egestas augue. Aenean ipsum sapien, eleifend id mattis eu, placerat 
+				quis neque. Maecenas vel odio quam.            
+  	  	      </p>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </apex:define> 
+  </apex:composition>
+</apex:page>

@@ -1,0 +1,49 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 5_8
+
+	Loading records asynchronously
+	 
+ -->
+<apex:page StandardController="Account" extensions="AsynchLoadExt">
+ <apex:pageMessages id="msgs"/>
+ <apex:form >
+  <apex:actionFunction name="loadOppsJS" action="{!loadOpps}" rerender="oppsPanel, oppsJS, msgs"/>
+  <apex:sectionHeader title="Account" subtitle="Asynchronous Opportunities" />
+  <apex:pageBlock >
+    <apex:pageBlockSection columns="1" title="Detail">
+      <apex:outputField value="{!Account.Name}" />
+      <apex:outputField value="{!Account.Industry}" />
+      <apex:outputField value="{!Account.Type}" />
+    </apex:pageBlockSection>
+    <apex:outputPanel id="oppsPanel">
+      <apex:outputPanel rendered="{!oppsNeeded}">
+        <apex:pageBlockSection title="Opportunities">
+          <div id="spinner">
+            <p align="center" style='{font-family:"Arial", Helvetica, sans-serif; font-size:20px;}'><apex:image value="/img/loading.gif"/></p>
+          </div>
+        </apex:pageBlockSection>
+      </apex:outputPanel>
+      <apex:outputPanel rendered="{!NOT(oppsNeeded)}">
+        <apex:pageBlockSection title="Opportunities" columns="1">
+          <apex:pageBlockTable value="{!opps}" var="opp" rendered="{!oppsFound}">
+            <apex:column headerValue="{!$ObjectType.Opportunity.fields.Name.label}">
+              <apex:outputLink value="/{!opp.id}">{!opp.Name}</apex:outputLink>
+            </apex:column>
+            <apex:column value="{!opp.Amount}" />
+            <apex:column value="{!opp.CloseDate}" />
+          </apex:pageBlockTable>
+          <apex:outputText value="No opportunities found" rendered="{!NOT(oppsFound)}"/>
+        </apex:pageBlockSection>
+      </apex:outputPanel>
+    </apex:outputPanel>
+  </apex:pageBlock>
+ </apex:form>
+  <apex:outputPanel id="oppsJS">
+    <apex:outputPanel rendered="{!oppsNeeded}">
+   <script>
+     window.setTimeout(function(){loadOppsJS()}, 5000});
+   </script>
+   </apex:outputPanel>
+ </apex:outputPanel>
+</apex:page>

@@ -1,0 +1,22 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 6_4
+
+	Visualforce page containing a chart plotting multiple series
+	 
+ -->
+<apex:page controller="MultiSeriesChartController">
+    <p style="font-size:18px; font-weight: bold;">Opportunities Won/Lost - Last 12 Months - executed on&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}"><apex:param value="{!TODAY()}"/></apex:outputText></p>
+    <div style="margin-left: auto; margin-right: auto">
+      <apex:chart height="400" width="550" data="{!chartData}">
+       <apex:axis type="Numeric" position="left" fields="wonCount,lostCount"
+            title="Record Count" grid="false" steps="1"/>
+       <apex:axis type="Category" position="bottom" fields="name"
+            title="Month"/>
+       <apex:lineSeries axis="bottom" fill="false" xField="name" yField="wonCount"
+           markerType="circle" markerSize="4" markerFill="#00FF00" title="Won"/>
+       <apex:barSeries orientation="vertical" axis="bottom" xField="name" yField="lostCount" title="Lost" />
+       <apex:legend position="top" />
+     </apex:chart>
+   </div>
+</apex:page>

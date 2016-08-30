@@ -1,0 +1,147 @@
+<!--
+    
+    Visualforce Development Cookbook Recipe 9_3
+
+    Create a Lead record and capture the location in Lightning
+     
+ -->
+<apex:page applyHtmlTag="false" applyBodyTag="false" showHeader="false" docType="html-5.0"
+           controller="SF1CaptureLocationController">
+  <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <head>
+      <title>
+        <apex:insert name="title" />
+      </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+      <!-- SLDS -->
+      <apex:stylesheet value="{!URLFOR($Resource.SLDS_2_0_2, '/assets/styles/salesforce-lightning-design-system.min.css')}"/>
+    </head>
+    <body>
+      <div class="slds">
+        <div class="slds-page-header" role="banner">
+          <div class="slds-media">
+            <div class="slds-media__body">
+              <p class="slds-page-header__title slds-truncate slds-align-middle" title="Demo Site">Lead Lcation</p>
+              <p class="slds-text-body--small slds-page-header__info">Visualforce Development Cookbook</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slds-form--horizontal slds-m-around--medium">
+          <div class="slds-form-element">
+            <label class="slds-form-element__label">First Name</label>
+            <div class="slds-form-element__control">
+              <input id="firstname" class="slds-input" type="text" placeholder="First ..." />
+            </div>
+          </div>
+          
+          <div class="slds-form-element">
+            <label class="slds-form-element__label">Last Name</label>
+            <div class="slds-form-element__control">
+              <input id="lastname" class="slds-input" type="text" placeholder="Last ..." />
+            </div>
+          </div>
+          
+          <div class="slds-form-element">
+            <label class="slds-form-element__label">Company</label>
+            <div class="slds-form-element__control">
+              <input id="company" class="slds-input" type="text" placeholder="Company ..." />
+            </div>
+          </div>
+          
+          <div class="slds-form-element">
+            <label class="slds-form-element__label">Email</label>
+            <div class="slds-form-element__control">
+              <input id="email" class="slds-input" type="email" placeholder="Email ..." />
+            </div>
+          </div>
+          
+          <div class="slds-align--center" id="msg"></div>
+        
+          <div class="slds-form-element slds-m-top--small">
+            <button class="slds-button slds-button--brand" onclick="save();">Save</button>
+          </div>
+          
+        </div>
+      </div>
+      
+      <script>
+          /* save the lead */
+          function save() {
+              if (navigator.geolocation) {
+                  navigator.geolocation.getCurrentPosition(
+                          geoSuccess,
+                          geoError,
+                          {
+                              maximumAge: 0,
+                              timeout:30000,
+                              enableHighAccuracy: true
+                          }
+                      );
+               }
+           }
+           
+           /* function invoked when the geolocation has completed successfully */    
+           function geoSuccess(position) {  
+               uploadLead(position.coords.latitude, position.coords.longitude);
+           }
+    
+          /* function invoked when the geolocation has failed - records the error  */
+          function geoError(error) 
+          {
+ 	          var code='';
+              if (error.code == error.PERMISSION_DENIED) 
+              {
+                  code='Permission Denied';
+              }
+              else if (error.code == POSITION_UNAVAILABLE)
+              {
+                  code='Position Unavailable';
+              }
+              else if (error.code == TIMEOUT)
+              {
+                  code='Timeout';
+              }
+		            
+              document.querySelector('#msg').html('<span style="color:red">Geocoding failed - ' + code + '</span>');
+          }
+        
+          /* uploads the lead via the remote method */
+          function uploadLead(lat, long)
+          {
+              var fname=document.querySelector('#firstname').value;
+              var lname=document.querySelector('#lastname').value;
+              var company=document.querySelector('#company').value;
+              var email=document.querySelector('#email').value;
+        
+              SF1CaptureLocationController.CreateLead(fname, lname, company, 
+                      email, lat, long, leadCaptured, {escape:true});
+          }
+    
+          /* Callback method for the remote call */
+          function leadCaptured(result, event) {
+              if (event.status) {
+                  if ('SUCCESS'==result) {
+                      document.querySelector('#firstname').value;
+                      document.querySelector('#lastname').value;
+                      document.querySelector('#company').value;
+                      document.querySelector('#email').value;
+		          	document.querySelector('#msg').innerHTML='<span style="color:green;">Lead created</span>';
+                  }
+                  else {
+                      document.querySelector("#msg").innerHTML='<span style="color:red">An error occurred : ' + result + '</span>';
+                  }
+              }
+              else if (event.type === 'exception') {
+                  document.querySelector("#msg").innerHTML=event.message;
+              } 
+              else {
+                  document.querySelector("#msg").innerHTML=event.message;
+              }
+          }
+          
+      </script>
+    </body>
+  </html>
+
+</apex:page>

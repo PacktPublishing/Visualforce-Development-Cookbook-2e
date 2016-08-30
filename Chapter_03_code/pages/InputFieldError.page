@@ -1,0 +1,27 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 3_2
+
+	Add error message to input field
+	 
+ -->
+<apex:page standardController="Contact" extensions="InputFieldErrorExt">
+  <apex:form >
+    <apex:sectionHeader title="Create Contact" />
+    <apex:pageBlock >
+      <apex:pageBlockButtons >
+        <apex:commandButton value="Save" action="{!save}" />
+        <apex:commandButton value="Cancel" action="{!cancel}" />
+      </apex:pageBlockButtons>
+      
+      <apex:pageBlockSection >
+        <apex:inputField value="{!Contact.Salutation}"/>
+        <apex:inputField value="{!Contact.FirstName}"/>
+        <apex:pageBlockSectionItem />
+        <apex:inputField value="{!Contact.LastName}"/>
+        <apex:inputField value="{!Contact.Phone}"/>
+        <apex:inputField value="{!Contact.Email}"/>
+      </apex:pageBlockSection>
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

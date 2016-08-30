@@ -1,0 +1,38 @@
+<!--
+    
+    Visualforce Development Cookbook Recipe 9_7
+
+    Access a record via a QR code
+     
+ -->
+<apex:page applyHtmlTag="false" applyBodyTag="false" sidebar="false" showHeader="false" standardStyleSheets="false"
+           standardcontroller="Opportunity">
+  <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <head>
+      <title>
+        Opportunity QR Code
+      </title>
+      <!-- SLDS -->
+      <apex:stylesheet value="{!URLFOR($Resource.SLDS_2_0_2, '/assets/styles/salesforce-lightning-design-system.min.css')}"/>
+    </head>
+    <body>
+      <div class="slds">
+        <div class="slds-page-header" role="banner">
+          <div class="slds-media">
+            <div class="slds-media__body">
+              <p class="slds-page-header__title slds-truncate slds-align-middle" title="Demo Site">QR Code</p>
+              <p class="slds-text-body--small slds-page-header__info">Visualforce Development Cookbook</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slds-m-around--medium">
+          <p style="padding-bottom: 10px">
+            Scan the code below on your mobile device to open the account record in Salesforce1
+          </p>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={!URLENCODE('salesforce1://sObject/' + Opportunity.Id + '/view')}" />
+        </div>
+      </div>
+    </body>
+  </html>
+</apex:page>

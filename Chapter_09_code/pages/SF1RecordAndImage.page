@@ -1,0 +1,184 @@
+<!--
+    
+    Visualforce Development Cookbook Recipe 9_4
+
+    Create a Case Record with an image in Salesforce1 with Lightning
+     
+ -->
+<apex:page applyHtmlTag="false" applyBodyTag="false" sidebar="false" showHeader="false" standardStyleSheets="false"
+           standardcontroller="Account" extensions="SF1RecordAndImageController">
+  <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <head>
+      <title>
+        <apex:insert name="title" />
+      </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+      <!-- SLDS -->
+      <apex:stylesheet value="{!URLFOR($Resource.SLDS_2_0_2, '/assets/styles/salesforce-lightning-design-system.min.css')}"/>
+      
+      <!-- Mega Pixel Image processor -->
+      <apex:includescript value="{!$Resource.MegaPixelImg}" />
+      
+      <!--  JavaScript to allow interaction with the publisher -->
+      <script type='text/javascript' src='/canvas/sdk/js/publisher.js'></script>
+    </head>
+    <body>
+      <div class="slds">
+        <div class="slds-page-header" role="banner">
+          <div class="slds-media">
+            <div class="slds-media__body">
+              <p class="slds-page-header__title slds-truncate slds-align-middle" title="Demo Site">Create Case and Image</p>
+              <p class="slds-text-body--small slds-page-header__info">Visualforce Development Cookbook</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slds-form--horizontal slds-m-around--medium">
+          <div class="slds-form-element">
+            <label class="slds-form-element__label">Subject</label>
+            <div class="slds-form-element__control">
+              <input id="subject" class="slds-input" type="text" placeholder="Subject ..." />
+            </div>
+          </div>
+          
+          <div class="slds-form-element">
+            <label class="slds-form-element__label">Description</label>
+            <div class="slds-form-element__control">
+              <input id="description" class="slds-input" type="text" placeholder="Description ..." />
+            </div>
+          </div>          
+          
+          <div class="slds-align--center" id="msg"></div>
+        
+          <div class="slds-form-element">
+            <label class="slds-form-element__label">Take Picture</label>
+            <div class="slds-form-element__control">
+              <input id="Take-Picture" type="file" accept="image/*"/>
+            </div>
+          </div>
+        
+        <img style="display:none; width:243px; height:216px;border:10px groove silver" src="" id="picture" />
+          
+        <div class="slds-form-element slds-m-top--x-small">
+            <button id="rotate" class="slds-button slds-button--brand">Rotate</button>
+        </div>
+          
+        <div class="slds-form-element">
+           <canvas id="mycanvas" style="border: 1px solid black" />
+        </div>
+        
+        </div>
+      </div>
+      
+      <script>
+   	   
+      	Sfdc.canvas.publisher.subscribe({name: "publisher.post", onData:function(e) {
+         	// This subscribe fires when the user hits 'Save' in the publisher
+          	save();
+      	}});
+                                                        
+  	    Sfdc.canvas.publisher.publish({name: "publisher.setValidForSubmit", payload:"true"});
+		
+	 	document.querySelector('#rotate').addEventListener("click", function (event) {
+    	  	rotateImage();
+      	});
+      	
+        var takePicture = document.querySelector("#Take-Picture"),
+            showPicture = document.querySelector("#picture"),
+            maxWidth=200,
+			maxHeight=200,
+			height,
+			width,
+            gotPic = false,
+            mpImg,
+            strDataURI=null,
+			mycanvas=document.querySelector('#mycanvas');
+		
+		// set up the event handler for the user choosing a file/taking a picture
+        if (takePicture && showPicture) {
+            takePicture.onchange = function (event) {
+                var files = event.target.files;
+                if (files && files.length > 0) {
+                    file = files[0];
+                    try {
+                        var fileReader = new FileReader();
+                        fileReader.onload = function (event) {
+                            showPicture.src = event.target.result;
+                        };
+                        fileReader.readAsDataURL(file);
+	                    gotPic=true;
+                    }
+                    catch (e) {
+                        alert("FileReader not supported");
+                    }
+                    mpImg = new MegaPixImage(file);
+                }
+            };
+        }
+        
+        // event handler when the source of the hidden image is changed to the uploaded file
+		showPicture.onload = function(event) 
+		{
+			height=showPicture.naturalHeight,
+			width=showPicture.naturalWidth;
+				
+			if(width > maxWidth){
+        		ratio = maxWidth / width;   // get ratio for scaling image
+        		height = height * ratio;    // Reset height to match scaled image
+        		width = width * ratio;    // Reset width to match scaled image
+	    	}
+
+    		// Check if current height is larger than max
+           if(height > maxHeight){
+               ratio = maxHeight / height; // get ratio for scaling image
+               width = width * ratio;    // Reset width to match scaled image
+               height = height * ratio;    // Reset height to match scaled image
+            }
+        			
+    		mpImg.render(mycanvas, { maxWidth: width, maxHeight: height });
+    					 
+    	 };
+    		
+    	 // rotate the image - useful after taking a portrait photo
+    	 function rotateImage() {
+    	     mpImg.render(mycanvas, { maxWidth: width, maxHeight: height, orientation: 6 });
+    	 }
+    	 
+    	 // executes the remote method to save the case and create the attachment
+         function save() {
+             var subject=document.querySelector('#subject').value;
+             var description=document.querySelector('#description').value;
+             var strDataURI;
+             if (gotPic) {
+    	         strDataURI=mycanvas.toDataURL();
+		
+  			     if (null!=strDataURI) {
+				     strDataURI = strDataURI.split(',')[1];
+			     }
+              }
+        
+             SF1RecordAndImageController.SaveCase('{!Account.Id}', subject, description, 
+                                         strDataURI, caseCaptured, {escape:true});
+         }
+    
+    	 // remote method callback
+         function caseCaptured(result, event) {
+             if (event.status) {
+                 document.querySelector('#subject').value='';
+                 document.querySelector('#description').value='';
+                 alert('Case created');
+		 		 Sfdc.canvas.publisher.publish({name: "publisher.close", 
+								payload:{ refresh:"true"}});
+             }
+             else if (event.type === 'exception') {
+                 document.querySelector("#msg").innerHTML=event.message;
+             } 
+             else {
+                 document.querySelector("#msg").innerHTML=event.message;
+             }
+         }
+      </script>
+    </body>
+  </html>
+
+</apex:page>

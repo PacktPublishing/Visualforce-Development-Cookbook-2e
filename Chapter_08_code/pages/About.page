@@ -1,0 +1,29 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 8_6
+
+	Website template with header menu
+	 
+ -->
+<apex:page applyHtmlTag="false" applyBodyTag="false" sidebar="false" showHeader="false" standardStyleSheets="false">
+  <apex:composition template="CookbookTemplateV2">
+    <apex:define name="page">
+      <apex:variable var="page" value="about"/>
+    </apex:define> 
+    <apex:define name="title">
+      Force.com Sites Recipe 6
+    </apex:define>
+    <apex:define name="body">
+        <div class="slds-grid slds-wrap slds-m-around--large">
+           <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2">
+             <div class="slds-text-heading--small slds-m-around--medium">Detail</div>
+             <div class="slds-text-body--regular slds-m-around--medium">This is the about page for the templated Visualforce page with header navigation.</div>
+          </div>
+           <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2">
+             <div class="slds-text-heading--small slds-m-around--medium">Notes</div>
+             <div class="slds-text-body--regular slds-m-around--medium">The underline has moved to the <strong>About</strong> menu item.</div>
+          </div>
+        </div>
+    </apex:define> 
+  </apex:composition>
+</apex:page>

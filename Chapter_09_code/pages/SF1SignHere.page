@@ -1,0 +1,152 @@
+<!--
+    
+    Visualforce Development Cookbook Recipe 9_5
+
+    Create a Lead Record with a signature in Lightning
+     
+ -->
+<apex:page applyHtmlTag="false" applyBodyTag="false" showHeader="false" docType="html-5.0"
+           controller="SF1SignHereController">
+  <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <head>
+      <title>
+        <apex:insert name="title" />
+      </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+      <!-- SLDS -->
+      <apex:stylesheet value="{!URLFOR($Resource.SLDS_2_0_2, '/assets/styles/salesforce-lightning-design-system.min.css')}"/>
+      <apex:includeScript value="{!$Resource.SignaturePad_1_5_3}" />
+    </head>
+    <body>
+      <div class="slds">
+        <div class="slds-page-header" role="banner">
+          <div class="slds-media">
+            <div class="slds-media__body">
+              <p class="slds-page-header__title slds-truncate slds-align-middle" title="Demo Site">SignHere</p>
+              <p class="slds-text-body--small slds-page-header__info">Visualforce Development Cookbook</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slds-form--horizontal slds-m-around--medium">
+          <div class="slds-form-element">
+            <label class="slds-form-element__label">First Name</label>
+            <div class="slds-form-element__control">
+              <input id="firstname" class="slds-input" type="text" placeholder="First ..." />
+            </div>
+          </div>
+          
+          <div class="slds-form-element">
+            <label class="slds-form-element__label">Last Name</label>
+            <div class="slds-form-element__control">
+              <input id="lastname" class="slds-input" type="text" placeholder="Last ..." />
+            </div>
+          </div>
+          
+          <div class="slds-form-element">
+            <label class="slds-form-element__label">Company</label>
+            <div class="slds-form-element__control">
+              <input id="company" class="slds-input" type="text" placeholder="Company ..." />
+            </div>
+          </div>
+          
+          <div class="slds-form-element">
+            <label class="slds-form-element__label">Email</label>
+            <div class="slds-form-element__control">
+              <input id="email" class="slds-input" type="email" placeholder="Email ..." />
+            </div>
+          </div>
+          
+          <div class="slds-form-element">
+            <label class="slds-form-element__label">I agree to receiving marketing emails</label>
+            <div class="slds-form-element__control">
+              <canvas id="sigcanvas" style="width:100%; height:165px; border:black solid 1px"></canvas>
+            </div>
+          </div>  
+          
+          <div class="slds-align--center slds-m-top--small slds-m-bottom--small" id="msg"></div>
+        
+          <div class="slds-form-element">
+            <button id="clear" class="slds-button slds-button--brand">Re-sign</button>
+            <button class="slds-button slds-button--brand" onclick="save();">Save</button>
+          </div>
+          
+        </div>
+        
+      </div>
+      <script>
+      var canvas = document.querySelector("#sigcanvas");
+
+      // Adjust canvas coordinate space taking into account pixel ratio,
+      // to make it look crisp on mobile devices.
+      // This also causes canvas to be cleared.
+      function resizeCanvas() {
+          var ratio =  window.devicePixelRatio || 1;
+          canvas.width = canvas.offsetWidth * ratio;
+          canvas.height = canvas.offsetHeight * ratio;
+          canvas.getContext("2d").scale(ratio, ratio);
+      }
+
+      window.onresize = resizeCanvas;
+      resizeCanvas();
+
+      var signaturePad = new SignaturePad(canvas);
+  
+ 	  document.querySelector('#clear').addEventListener("click", function (event) {
+      		signaturePad.clear();
+      });
+
+  
+	function save() 
+	{
+		try
+		{
+		    if (signaturePad.isEmpty()) 
+		    {
+		        alert("Please provide a signature.");
+    		} 
+    		else 
+    		{
+				var strDataURI = signaturePad.toDataURL();
+				strDataURI = strDataURI.replace(/^data:image\/(png|jpg);base64,/, "");
+                var firstname=document.querySelector('#firstname').value;
+                var lastname=document.querySelector('#lastname').value;
+                var company=document.querySelector('#company').value;
+                var email=document.querySelector('#email').value;
+                SF1SignHereController.SaveLead(firstname, lastname, company, email, 
+                                               strDataURI, leadCaptured, {escape:true});
+            }
+		}
+		catch (e)
+		{
+			alert('Caught exception : ' + e);
+		}     
+	}
+    
+    function leadCaptured(result, event) {
+        if (event.status) {
+            if ('SUCCESS'==result) {
+                document.querySelector('#firstname').value='';
+                document.querySelector('#lastname').value='';
+                document.querySelector('#company').value='';
+                document.querySelector('#email').value='';
+                signaturePad.clear();
+		    	document.querySelector('#msg').innerHTML='<span style="color:green;">Lead created</span>';
+            }
+            else {
+               document.querySelector("#msg").innerHTML='<span style="color:red">An error occurred : ' + result + '</span>';
+            }
+        }
+        else if (event.type === 'exception') {
+            document.querySelector("#msg").innerHTML=event.message;
+        } 
+        else {
+            document.querySelector("#msg").innerHTML=event.message;
+        }
+    }
+
+      </script>
+    </body>
+  </html>
+
+</apex:page>

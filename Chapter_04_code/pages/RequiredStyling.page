@@ -1,0 +1,49 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 4_1
+
+	Styling elements as required
+	 
+ -->
+<apex:page standardController="Contact" extensions="RequiredStylingExt">
+  <style>
+    .requiredBlock {
+       background-color:#CC0000;
+       bottom:1px;
+       left:-4px;
+       position:absolute;
+       top:1px;
+       width:3px;
+    }
+
+    .requiredInput {
+       height:100%;
+       position:relative;
+    }
+  </style>
+  
+  <apex:sectionHeader title="Create Contact" />
+  <apex:pageMessages />
+  <apex:form >
+    <apex:pageBlock mode="mainDetail">
+      <apex:pageBlockButtons >
+        <apex:commandButton value="Save" action="{!save}" />
+        <apex:commandButton value="Cancel" action="{!cancel}" />
+      </apex:pageBlockButtons>
+      <apex:pageBlockSection title="Details">
+        <apex:inputField value="{!contact.Salutation}"/>
+        <apex:inputField value="{!contact.FirstName}"/>
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel value="Last Name"/>
+          <apex:outputPanel id="detailrequiredpanel" layout="block" styleClass="requiredInput">
+            <apex:outputPanel layout="block" styleClass="requiredBlock" />
+	        <apex:inputText value="{!Contact.LastName}"/>
+          </apex:outputPanel>
+        </apex:pageBlockSectionItem>
+        <apex:inputField value="{!contact.phone}" />
+        <apex:inputField value="{!contact.email}" />
+        <apex:inputField value="{!contact.fax}" />
+      </apex:pageBlockSection>
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

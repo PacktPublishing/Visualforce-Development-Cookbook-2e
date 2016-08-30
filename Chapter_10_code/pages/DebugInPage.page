@@ -1,0 +1,22 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 10_7
+
+	Displays debug messages in the page
+	 
+ -->
+<apex:page controller="DebugInPageController" tabstyle="Opportunity">
+  <apex:sectionHeader title="Debugging Visualforce" subtitle="Logging to the page" />
+  <apex:pageBlock title="Top 10 Opportunities by Value">
+    <apex:pageBlockTable value="{!top10Opps}" var="opp">
+      <apex:column value="{!opp.Name}" />
+      <apex:column value="{!opp.Amount}" />
+      <apex:column value="{!opp.StageName}" />
+    </apex:pageBlockTable>
+  </apex:pageBlock>
+  <apex:pageBlock title="Debug Logs" rendered="{!debug}">
+    <apex:pageBlockTable value="{!msgs}" var="msg">
+      <apex:column value="{!msg}" />
+    </apex:pageBlockTable>
+  </apex:pageBlock>
+</apex:page>

@@ -1,0 +1,15 @@
+<!--
+    
+    Visualforce Development Cookbook Recipe 10_4
+
+    Contains a select list where the options are  
+    part of the view state. 
+     
+ -->
+<apex:page controller="ViewStateLargeController">
+  <apex:form>
+    <apex:selectList >
+      <apex:selectOptions value="{!accountOptions}" />
+    </apex:selectList>
+  </apex:form>
+</apex:page>

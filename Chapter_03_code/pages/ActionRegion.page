@@ -1,0 +1,55 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 3_8
+
+	Breaking up forms with action regions
+	 
+ -->
+<apex:page standardController="Case" extensions="ActionRegionExt">
+  <apex:form >
+    <apex:pageMessages id="msgs" />
+    <apex:pageBlock mode="mainDetail" title="Create Case">
+      <apex:pageBlockButtons >
+        <apex:commandButton value="Save" action="{!save}" />
+        <apex:commandButton value="Cancel" action="{!cancel}" />
+      </apex:pageBlockButtons>
+      
+      <!-- case subject action region -->
+      <apex:actionRegion >
+        <apex:pageBlockSection title="Subject" id="subject">
+          <apex:pageBlockSectionItem >
+            <apex:outputLabel value="Base Subject"/>
+            <apex:inputText value="{!baseSubject}">
+              <apex:actionSupport event="onchange" action="{!setupSubject}" rerender="subject, msgs" status="stat"/>
+            </apex:inputText>
+          </apex:pageBlockSectionItem>
+          <apex:outputField value="{!Case.Subject}" />
+        </apex:pageBlockSection>
+      </apex:actionRegion>
+      
+      <!-- case account action region -->
+      <apex:actionRegion >
+        <apex:pageBlockSection title="Account" id="account">
+          <apex:inputField value="{!Case.AccountId}">
+            <apex:actionSupport event="onchange" action="{!setupSubject}" rerender="subject, msgs" status="stat"/>
+          </apex:inputField>
+          <apex:pageBlockSectionItem />
+  	    <apex:actionStatus startText="Getting detail" id="stat" />
+        </apex:pageBlockSection>
+      </apex:actionRegion>
+      
+      <apex:pageBlockSection title="Details" columns="1">
+        <apex:inputField style="width:80%" value="{!Case.Description}" />
+      </apex:pageBlockSection>
+      
+      <apex:pageBlockSection >
+        <apex:inputField value="{!Case.Type}" />
+        <apex:inputField value="{!Case.Priority}" />
+        <apex:inputField value="{!Case.Status}" />
+        <apex:inputField value="{!Case.Origin}" />
+        <apex:inputField value="{!Case.Reason}" />
+      </apex:pageBlockSection>
+      
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

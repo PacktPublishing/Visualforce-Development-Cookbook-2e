@@ -1,0 +1,68 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 7_7
+
+	JavaScript remoting
+	 
+ -->
+<apex:page controller="RemotingController" tabstyle="Lead">
+  <apex:sectionHeader title="Remote Create Lead" />
+    <apex:pageBlock >
+      <apex:pageBlockButtons >
+        <button onclick="remoteCreate(); return false;">Save</button>
+        <button onclick="window.location='/00Q/o';">Cancel</button>
+      </apex:pageBlockButtons>
+      <apex:pageBlockSection>
+        <apex:pageBlockSectionItem>
+          <apex:outputLabel value="Salutation"/>
+          <select id="salutation">
+            <option>Mr</option>
+            <option>Mrs</option>
+            <option>Miss</option>
+            <option>Dr</option>
+          </select>
+        </apex:pageBlockSectionItem>
+        <apex:pageBlockSectionItem>
+          <apex:outputLabel value="First Name"/>
+          <input id="firstname" type="text" />
+        </apex:pageBlockSectionItem>
+        <apex:pageBlockSectionItem>
+          <apex:outputLabel value="Last Name"/>
+          <input id="lastname" type="text" />
+        </apex:pageBlockSectionItem>
+        <apex:pageBlockSectionItem>
+          <apex:outputLabel value="Company"/>
+          <input id="company" type="text" />
+        </apex:pageBlockSectionItem>
+      </apex:pageBlockSection>
+    </apex:pageBlock>
+  
+  <script>
+     // Extract the user input and execute the remote method
+     function remoteCreate() {
+         var salutation=document.querySelector('#salutation').value;
+         var firstname=document.querySelector('#firstname').value;
+         var lastname=document.querySelector('#lastname').value;
+         var company=document.querySelector('#company').value;
+         
+	     RemotingController.CreateLead(
+        			salutation, firstname, lastname, company,
+        			createLeadResponseHandler);
+	}
+
+    // callback function executed when the remote method completes	
+	function createLeadResponseHandler(result, event)
+	{ 
+       	if (event.status) {
+        	alert('Lead created - id = ' + result.Id);
+        	window.location='/' + result.Id;
+        }
+        else if (event.type === 'exception') {
+            alert('Exception in Remote Method:\n' + event.message);
+        }
+        else {
+            alert('Something went wrong - that\'s all I know');
+        }
+     }
+  </script>
+</apex:page>

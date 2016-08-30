@@ -1,0 +1,55 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 3_11
+
+	Chaining action functions
+	 
+ -->
+<apex:page controller="ActionChainController">
+  <apex:form >
+  <apex:actionRegion >
+    <apex:actionStatus id="stat" startText="Invoking action method ..." />
+    
+    <apex:outputPanel id="js">
+      <apex:outputPanel rendered="{!opp.StageName='Prospecting'}">
+        <apex:actionFunction name="qualificationJS" action="{!qualification}" rerender="js,msgs,detail" status="stat"/>
+  	    <script>
+	      qualificationJS();  
+	    </script>
+      </apex:outputPanel>
+    
+      <apex:outputPanel rendered="{!opp.StageName='Qualification'}">
+        <apex:actionFunction name="needsAnalysisJS" action="{!needsAnalysis}" rerender="js,msgs,detail" status="stat"/>
+	    <script>
+	      needsAnalysisJS();  
+	    </script>
+      </apex:outputPanel>
+
+      <apex:outputPanel rendered="{!opp.StageName='Needs Analysis'}">
+        <apex:actionFunction name="propositionJS" action="{!proposition}" rerender="js, msgs, detail" status="stat" />
+	    <script>
+  	      propositionJS();  
+	    </script>
+      </apex:outputPanel>
+      
+    </apex:outputPanel>
+  </apex:actionRegion>
+  
+  <apex:pageMessages id="msgs" />
+  
+  <apex:pageBlock title="Create opp">
+  
+    <apex:pageBlockButtons >
+      <apex:commandButton value="Save" action="{!save}" rerender="js, msgs, detail" status="stat"/>
+    </apex:pageBlockButtons>
+    
+    <apex:pageBlockSection title="Detail" columns="1" id="detail">
+      <apex:inputField value="{!opp.Name}"/>
+      <apex:inputField value="{!opp.CloseDate}"/>
+      <apex:inputField value="{!opp.Amount}"/>
+      <apex:inputField value="{!opp.StageName}"/>
+    </apex:pageBlockSection>
+    
+  </apex:pageBlock>
+  </apex:form>
+</apex:page>

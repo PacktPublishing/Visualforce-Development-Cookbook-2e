@@ -1,0 +1,29 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 6_8
+
+	Visualforce containing multiple charts ina table
+	 
+ -->
+<apex:page controller="ChartTableController" title="Charts">
+  <table width="100%" border="1" cellpadding="20" cellspacing="0">
+	<apex:repeat value="{!rows}" var="row">
+    <tr>
+	  <apex:repeat value="{!row.charts}" var="chart">
+    	<td width="30%" id="td{!chart.idx}">
+          <span style="font-weight:bold">{!chart.Name}</span><br/>
+           <div id="CHART{!chart.idx}">
+    		 <apex:chart height="230" width="300" data="{!chart.months}" renderto="CHART{!chart.idx}">  
+       			<apex:axis type="Category" position="left" fields="name"
+            			title="Month" />
+       		    <apex:axis type="Numeric" position="bottom" fields="oppTotal"
+            			title="Closed Total" grid="true"/>
+       		   <apex:barSeries orientation="horizontal" axis="left" xField="oppTotal" yField="name" />
+    		 </apex:chart>
+          </div>
+        </td>
+   	  </apex:repeat>
+	</tr>
+   	  </apex:repeat>
+  </table>
+</apex:page>

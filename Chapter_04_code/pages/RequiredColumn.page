@@ -1,0 +1,38 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 4_2
+
+	Styling table columns as required
+	 
+ -->
+<apex:page controller="RequiredColumnController" tabstyle="Contact">
+  <style>
+    .requiredHeader{
+    	color: #F00;
+    }    
+  </style>
+  
+  <apex:sectionHeader title="Create Contacts" />
+  <apex:form >
+    <apex:pageBlock >
+      <apex:pageBlockButtons >
+        <apex:commandButton value="Save" action="{!save}" />
+        <apex:commandButton value="Cancel" action="/003/o" />
+      </apex:pageBlockButtons>
+      <apex:pageBlockTable value="{!contacts}" var="contact">
+	    <apex:column >
+	      <apex:facet name="header">
+	        <apex:outputText value="{!$ObjectType.Contact.fields.FirstName.label}" />
+	      </apex:facet>
+	      <apex:inputField value="{!contact.FirstName}"/>
+	    </apex:column>
+	    <apex:column >
+	      <apex:facet name="header">
+	        <apex:outputText styleclass="requiredHeader" value="{!$ObjectType.Contact.fields.LastName.label}" />
+	      </apex:facet>
+	      <apex:inputField value="{!contact.LastName}" required="false"/>
+	    </apex:column>
+      </apex:pageBlockTable>
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

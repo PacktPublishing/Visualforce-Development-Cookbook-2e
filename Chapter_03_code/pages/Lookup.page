@@ -1,0 +1,55 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 3_5
+
+	Custom lookup popup
+	 
+ -->
+<apex:page standardController="Opportunity">
+  <apex:form >
+    <apex:pageBlock mode="mainDetail" title="Create Opportunity">
+      <apex:pageBlockButtons >
+        <apex:commandButton value="Save" action="{!save}" />
+        <apex:commandButton value="Cancel" action="{!cancel}" />
+      </apex:pageBlockButtons>
+      <apex:pageBlockSection title="Detail">
+        <apex:inputField value="{!Opportunity.Name}" />
+        <apex:inputField value="{!Opportunity.CloseDate}"/>
+        <apex:inputField value="{!Opportunity.Amount}" />
+        <apex:inputField value="{!Opportunity.StageName}" />
+        <apex:pageBlockSectionitem >
+          <apex:outputLabel value="Account"/>
+          <apex:outputPanel layout="inline" style="vertical-align:middle">
+  	        <apex:inputHidden value="{!Opportunity.AccountId}" id="targetId" />
+            <apex:inputText size="20" id="targetName" onFocus="this.blur()"/>
+            <a href="#" onclick="openLookupPopup('{!$Component.targetName}', '{!$Component.targetId}'); return false"><apex:image style="vertical-align:middle;width:21px; height:21px" value="/img/icon/telescope16.png" /></a>
+          </apex:outputPanel>
+        </apex:pageBlockSectionitem>
+      </apex:pageBlockSection>
+    </apex:pageBlock>
+  </apex:form>
+  
+  <!-- JavaScript to interact with the popup window -->
+  <script>
+	var newWin=null;
+	function openLookupPopup(name, id)
+	{
+		var url="/apex/LookupPopup?namefield=" + name + "&idfield=" + id;
+		newWin=window.open(url, 'Popup','height=500,width=600,left=100,top=100,resizable=no,scrollbars=yes,toolbar=no,status=no');
+		if (window.focus) 
+		{
+			newWin.focus();
+		}
+			
+	    return false;
+    }
+				  
+	function closeLookupPopup()
+	{
+	   if (null!=newWin)
+	   {
+	      newWin.close();
+	   }  
+	}
+  </script>
+</apex:page>

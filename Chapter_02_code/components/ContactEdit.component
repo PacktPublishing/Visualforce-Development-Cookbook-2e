@@ -1,0 +1,36 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 2_3
+
+	Component that receives action method parameters from the parent page
+	 
+ -->
+<apex:component >
+    <apex:attribute name="SaveAction" description="The save action method from the page controller" type="ApexPages.Action" required="true"/>
+    <apex:attribute name="CancelAction" description="The cancel action method from the page controller" type="ApexPages.Action" required="true"/>
+    <apex:attribute name="Contact" type="Contact" description="The contact to edit" required="true" />
+    
+    <apex:pageBlock title="Contact Edit">
+    
+      <!--  page buttons - these are bound to action methods from the parent page -->
+      <apex:pageBlockButtons location="bottom">
+        <apex:commandButton value="Save" action="{!SaveAction}" />
+        <apex:commandButton value="Cancel" action="{!CancelAction}" immediate="true" />
+      </apex:pageBlockButtons>
+      
+      <apex:pageBlockSection >
+        <apex:inputField value="{!Contact.Salutation}" />
+        <apex:inputField value="{!Contact.FirstName}" />
+        <apex:pageBlockSectionItem />
+        <apex:inputField value="{!Contact.LastName}" />
+      </apex:pageBlockSection>
+      
+      <apex:pageBlockSection >
+        <apex:inputField value="{!Contact.Email}" />
+        <apex:inputField value="{!Contact.Phone}" />
+        <apex:inputField value="{!Contact.Fax}" />
+        <apex:inputField value="{!Contact.MobilePhone}" />
+      </apex:pageBlockSection>
+      
+    </apex:pageBlock>
+</apex:component>

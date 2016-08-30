@@ -1,0 +1,69 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 7_4
+
+	Submit a form when the user presses the enter key
+	 
+ -->
+<apex:page standardController="Opportunity">
+  <apex:form id="frm">
+    <apex:sectionHeader title="Create Opportunity" />
+    <apex:pageBlock title="Details" id="pb">
+      <apex:pageBlockButtons id="pb_btns">
+        <apex:commandButton value="Save" action="{!save}" id="savebtn"/>
+        <apex:commandButton value="Cancel" action="{!cancel}" immediate="true" />
+      </apex:pageBlockButtons>
+      <apex:pageBlockSection columns="1"> 
+        <apex:inputField value="{!Opportunity.Name}" onkeypress="return keypress(event);" />
+        <apex:inputField value="{!Opportunity.CloseDate}" onkeypress="return keypress(event);" />
+        <apex:inputField value="{!Opportunity.StageName}" onkeypress="return keypress(event);" />
+        <apex:inputField value="{!Opportunity.NextStep}" onkeypress="return keypress(event);" />
+      </apex:pageBlockSection>
+    </apex:pageBlock>
+  </apex:form>
+    
+  <script>
+    /* function executed when a key is pressed in any of the input boxes */
+	function keypress(ev) 
+	{
+		/* check we have the correct event */
+		if (window.event)
+		{
+			ev=window.event;
+		}
+         
+        /* which key was pressed ? */
+		var keyCode;
+		if (ev.keyCode)
+		{
+			keyCode=ev.keyCode;
+		}
+		else
+		{
+			keyCode=ev.charCode;
+		}
+         
+        /* assume the event can propagate - we will set this to false if the key 
+           turns out to be the return key */
+		var result=true;
+
+		if (keyCode == 13)
+		{
+			/* it was the return key - find the save button */
+			var ele=document.getElementById('{!$Component.frm.pb.pb_btns.savebtn}');
+
+			/* ask the user if they are sure */
+			if (confirm("This will save your changes\nAre you sure you wish to continue?"))
+			{
+				/* the user has confirmed - programmatically click the button to submit the form */
+				ele.click();
+			}
+
+			/* stop the event propagating */
+			result=false;
+		}
+         
+		return result;
+	}
+  </script>
+</apex:page>

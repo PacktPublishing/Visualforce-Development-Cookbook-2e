@@ -1,0 +1,24 @@
+<!--
+    
+    Visualforce Development Cookbook Recipe 2_5
+
+    Component that either displays the contents of a list or nothing if the list 
+    is empty
+     
+ -->
+<apex:component controller="AllOrNothingController">
+  <apex:attribute name="list" type="SObject[]" description="The list to iterate" assignTo="{!values}" />
+  <apex:attribute name="title" type="String" description="The list title" />
+  <apex:attribute name="var" type="String" description="Variable representing an element in the list" />
+  
+  <apex:outputPanel rendered="{!render}">
+      <apex:pageBlock title="{!title}">
+        <apex:repeat value="{!list}" var="ele">
+          <apex:componentBody >
+            <apex:variable var="{!var}" value="{!ele}"/>
+          </apex:componentBody>
+        </apex:repeat>
+      </apex:pageBlock>
+  </apex:outputPanel>
+  
+</apex:component>

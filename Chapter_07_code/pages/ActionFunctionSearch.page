@@ -1,0 +1,53 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 7_2
+
+	Avoiding race conditions
+	 
+ -->
+<apex:page controller="ActionFunctionSearchController">
+  <apex:sectionHeader title="Account Search"/>
+  <apex:form id="frm">
+    <apex:actionFunction name="doSearchJS" action="{!doSearch}" />
+    <apex:actionFunction name="clearResultsJS" action="{!clearResults}" />
+    <apex:pageBlock title="Criteria" id="crit_pb">
+      <apex:pageBlockSection id="crit_pbs">
+        <apex:outputLabel value="Search for" />
+        <apex:inputText id="crit_str" value="{!searchStr}" />
+        <apex:commandButton value="Go" onclick="runSearch(); return false;" />
+        <apex:outputText style="font-style: italic">Enter at least two characters</apex:outputText>
+      </apex:pageBlockSection>
+    </apex:pageBlock>
+    <apex:pageBlock title="Results" id="results">
+      <apex:pageBlockTable value="{!results}" var="acc" rendered="{!resultsAvailable}">
+        <apex:column value="{!acc.Name}" />
+        <apex:column value="{!acc.Type}" />
+        <apex:column value="{!acc.Industry}" />
+      </apex:pageBlockTable>
+      <apex:outputPanel rendered="{!NOT(resultsAvailable)}">
+        <h2>No results available</h2>
+      </apex:outputPanel>
+    </apex:pageBlock>
+  </apex:form>
+
+  <script>
+  /* JavaScript function to execute a search as long as there are enough characters entered */
+	function runSearch()
+	{
+		// don't run the search unless there are enough characters
+		var str=document.getElementById('{!$Component.frm.crit_pb.crit_pbs.crit_str}').value;
+		if (str.length>=2)
+		{
+      /* execute the action function to execute the search in the controller */
+			doSearchJS();
+		}
+		else
+		{
+      /* not enough characters - alert the user and execute the action function to function
+         execute the action method in the controller to clear the search */
+      alert('Please enter at least two characters');
+			clearResultsJS();
+		}
+	}
+  </script>
+</apex:page>

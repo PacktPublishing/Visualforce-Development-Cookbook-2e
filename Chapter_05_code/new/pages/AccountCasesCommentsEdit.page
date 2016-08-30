@@ -1,0 +1,111 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 5_4
+
+	Managing a hierarchy of records
+	 
+ -->
+<apex:page StandardController="Account" extensions="AccountCasesCommentsEditExt">
+  <apex:form >
+    <apex:sectionHeader title="Account, Cases and Comments" />
+    <apex:pageBlock title="Account Info">
+    
+      <apex:pageBlockButtons >
+        <apex:commandButton value="Save" action="{!save}" />
+        <apex:commandButton value="cancel" action="{!cancel}" />
+      </apex:pageBlockButtons>
+      
+      <!-- account info -->
+      <apex:pageBlockSection columns="1">
+        <apex:inputField value="{!Account.Name}" />
+        <apex:inputField value="{!Account.Type}" />
+        <apex:inputField value="{!Account.NumberOfEmployees}" />
+      </apex:pageBlockSection>
+    </apex:pageBlock>
+     
+    <!-- list of related cases -->
+    <apex:pageBlock id="list">  
+      <table class="list" border="1" cellpadding="0" cellspacing="0">
+  	    <tr class="headerRow">
+          <th colspan="2" style="width:10%">Subject</th>
+          <th style="width:5%">Status</th>
+          <th style="width:10%">Actions</th>
+        </tr>
+        
+        <apex:repeat value="{!caseWrappers}" var="caseWrap">
+          <tr> 
+            <td colspan="2">
+              <apex:inputField style="width:80%" value="{!caseWrap.cs.Subject}"/>
+            </td>
+            <td>
+              <apex:inputField value="{!caseWrap.cs.Status}"/>
+            </td>
+          	<td>
+          	  <apex:commandButton value="del" action="{!deleteCase}" rerender="list">
+                <apex:param name="caseToDel" value="CS{!caseWrap.key}" assignTo="{!caseToDel}"/>
+          	  </apex:commandButton> 
+          	</td>
+          </tr>
+          
+          <apex:repeat value="{!caseWrap.comments}" var="commentWrap">
+          	<tr>
+          	  <td>
+          	     &nbsp;
+          	  </td>
+          	  <td style="font-weight:bold">
+          	     Comment
+          	  </td>
+          	  <td style="font-weight:bold">
+          	     Published?
+          	  </td>
+          	</tr>
+            <tr> 
+          	  <td>
+          	     &nbsp;
+          	  </td>
+              <td>
+                <apex:inputField style="width:80%" value="{!commentWrap.comment.CommentBody}"/>
+              </td>
+              <td>
+                <apex:inputField value="{!commentWrap.comment.IsPublished}"/>
+              </td>
+              <td>
+           	    <apex:commandButton value="del" action="{!deleteCaseComment}" rerender="list">
+                  <apex:param name="ccToDel" value="CS{!caseWrap.key}:CC{!commentWrap.key}" assignTo="{!ccToDel}"/>
+          	    </apex:commandButton> 
+          	  </td>
+            </tr>
+          </apex:repeat>
+          
+          <tr>
+            <td>
+              &nbsp;
+            </td>
+            <td>
+              <apex:commandButton value="add comment" action="{!addCaseComment}" rerender="list">
+                <apex:param name="caseToAddCC" value="CS{!caseWrap.key}" assignTo="{!caseToAddCC}" />
+              </apex:commandButton>
+            </td>
+            <td colspan="2">
+              &nbsp;
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" style="border-bottom: black 1px solid;">&nbsp;</td>
+          </tr>
+        </apex:repeat>
+        
+        <tr>
+          <td>
+            <apex:commandButton value="add case" action="{!addCase}" rerender="list" />
+          </td>
+          <td colspan="3">
+            &nbsp;
+          </td>
+        </tr>
+        
+      </table>
+      
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

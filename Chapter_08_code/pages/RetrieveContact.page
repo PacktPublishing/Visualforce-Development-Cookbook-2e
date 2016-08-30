@@ -1,0 +1,116 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 8_2
+
+	Site Visualforce page to search for contacts.
+	 
+ -->
+<apex:page applyHtmlTag="false" applyBodyTag="false" controller="RetrieveContactController" sidebar="false" showHeader="false" standardStyleSheets="false">
+<html>
+    <head>
+      <title>Force.com Sites Recipe 2</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+      <!-- SLDS -->
+      <apex:stylesheet value="{!URLFOR($Resource.SLDS_2_0_2, '/assets/styles/salesforce-lightning-design-system.min.css')}"/>
+    </head>
+    <body>
+       <div class="slds">
+       
+        <div class="slds-page-header" role="banner">
+          <div class="slds-media">
+		    <div class="slds-media__body">
+              <p class="slds-page-header__title slds-truncate slds-align-middle" title="Contact Search">Contact Search</p>
+        	  <p class="slds-text-body--small slds-page-header__info">Visualforce Development Cookbook</p>
+            </div>
+          </div>
+        </div>
+	
+		<div class="slds-m-around--medium">
+          <div class="slds-card">
+            <div class="slds-card__header slds-grid grid--flex-spread">
+              <h2 class="slds-text-heading--small slds-truncate">Enter the email address</h2>
+            </div>
+            <div class="slds-card__body slds-p-horizontal--small">
+              <div class="slds-text-body--regular slds-p-top--large slds-p-bottom--large">
+		        <apex:form>
+                  <div class="slds-form--horizontal">
+                    <div class="slds-form-element">
+                      <label class="slds-form-element__label">Email</label>
+                      <div class="slds-form-element__control">
+                        <apex:inputText styleClass="slds-input" id="email" value="{!emailStr}" />
+                      </div>
+                    </div>
+                  </div>
+               <apex:commandButton value="Lookup" action="{!lookup}" styleclass="slds-button slds-button--brand" rerender="results"/>
+                </apex:form>
+              </div>
+            </div>
+          </div>
+
+          <div class="slds-card">
+            <div class="slds-card__header slds-grid grid--flex-spread">
+              <h2 class="slds-text-heading--small slds-truncate">Results</h2>
+            </div>
+            <div class="slds-card__body slds-p-horizontal--small">
+              <div class="slds-text-body--regular slds-p-top--large slds-p-bottom--large">
+       <apex:outputPanel layout="block" id="results">
+         <apex:outputPanel layout="block" rendered="{!contactFound}">
+           <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-text-align--right">
+               <div class="slds-m-right--small"><strong>First Name</strong></div>
+             </div>
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2">
+                <apex:outputField value="{!cont.FirstName}"/>
+             </div>
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-text-align--right">
+               <div class="slds-m-right--small"><strong>Last Name</strong></div>
+             </div>
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2">
+                <apex:outputField value="{!cont.LastName}"/>
+             </div>
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-text-align--right">
+               <div class="slds-m-right--small"><strong>Email</strong></div>
+             </div>
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2">
+                <apex:outputField value="{!cont.Email}"/>
+             </div>
+           </div>
+         </apex:outputPanel>
+       
+         <apex:outputPanel layout="block" rendered="{!NOT(contactFound)}">
+             No contacts found matching that email address.
+         </apex:outputPanel>
+       </apex:outputPanel>
+              </div>
+            </div>
+          </div>
+        </div>
+		          
+        <table class="slds-table">
+          <tr>
+            <td>
+              <b>Lightning</b>
+            </td>
+            <td>
+              Built using the Salesforce Lightning Design System.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <b>Responsive</b>
+            </td>
+            <td>
+              Resize the browser window and see what happens
+            </td>
+          </tr>
+        </table>
+      
+        <div class="slds-text-align--center slds-m-top--large">
+          <div class="slds-text-body--small"><span style="font-style: italic">Salesforce, salesforce.com, Sales Cloud, Service Cloud, Collaboration Cloud, Custom Cloud, Force.com and Chatter are trademarks of salesforce.com, inc.</span></div>
+        </div>
+      
+      </div>
+
+    </body>
+  </html>
+</apex:page>

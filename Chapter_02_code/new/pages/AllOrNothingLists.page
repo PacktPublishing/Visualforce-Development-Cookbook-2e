@@ -1,0 +1,36 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 2_5
+
+	Page that utilises a component to display nothing
+	when a related list is empty
+	 
+ -->
+<apex:page standardController="Account" extensions="AllOrNothingListsExt">
+  <apex:pageBlock title="Account: {!Account.Name}">
+    <apex:pageBlockSection >
+      <apex:outputField value="{!Account.Name}"/> 
+      <apex:outputField value="{!Account.Type}"/> 
+      <apex:outputField value="{!Account.Website}"/>
+      <apex:outputField value="{!Account.Industry}"/> 
+    </apex:pageBlockSection>
+  </apex:pageBlock> 
+  <c:AllOrNothingPageBlock list="{!contacts}" var="cont" title="Contacts">
+    <apex:pageBlockSection title="{!cont.FirstName} {!cont.LastName}">
+	  <apex:outputField value="{!cont.Salutation}" />
+	  <apex:outputField value="{!cont.FirstName}" />
+	  <apex:outputField value="{!cont.LastName}" />
+	  <apex:pageBlockSectionItem />
+	  <apex:outputField value="{!cont.Title}" />
+	  <apex:outputField value="{!cont.Email}" />
+	</apex:pageBlockSection>
+  </c:AllOrNothingPageBlock>
+  <c:AllOrNothingPageBlock list="{!opportunities}" var="opp" title="Opportunities">
+    <apex:pageBlockSection title="{!opp.Name}">
+	  <apex:outputField value="{!opp.Amount}" />
+	  <apex:outputField value="{!opp.CloseDate}" />
+	  <apex:outputField value="{!opp.StageName}" />
+	  <apex:outputField value="{!opp.Probability}" />
+	</apex:pageBlockSection>
+  </c:AllOrNothingPageBlock>
+</apex:page>

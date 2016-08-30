@@ -1,0 +1,30 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 10_3
+
+	Multiple bindings to the same record
+	 
+ -->
+<apex:page controller="OppMultiBindingsController">
+  <apex:form >
+    <apex:pageBlock >
+      <apex:pageBlockButtons >
+        <apex:commandButton value="Save" action="{!save}" />
+      </apex:pageBlockButtons>
+      <apex:pageBlockTable value="{!oppWraps}" var="wrap">
+        <apex:column headerValue="Name">
+          <apex:inputField value="{!wrap.opp.Name}" />
+        </apex:column>
+        <apex:column headerValue="Stage Name">
+          <apex:inputField value="{!wrap.opp.StageName}" />
+        </apex:column>
+        <apex:column headerValue="Amount">
+          <apex:inputField value="{!wrap.opp.Amount}" />
+        </apex:column>
+        <apex:column headerValue="New Stage Name">
+          <apex:inputField value="{!wrap.carrier.StageName}" />
+        </apex:column>
+      </apex:pageBlockTable>
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

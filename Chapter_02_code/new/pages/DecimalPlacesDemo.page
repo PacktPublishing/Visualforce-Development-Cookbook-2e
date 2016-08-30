@@ -1,0 +1,18 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 2_4
+
+	Page to showcase component that displays a value with
+	a parameterised number of decimal places.
+	 
+ -->
+<apex:page standardController="Opportunity" recordsetvar="opps">
+  <apex:pageBlock >
+     <apex:pageBlockTable value="{!opps}" var="opp">
+        <apex:column value="{!opp.Name}" />
+        <apex:column headerValue="{!$ObjectType.Opportunity.fields.Name.label}">
+          <c:DecimalPlaces dp="{!TEXT(ROUND(MOD(opp.Amount/10000, 5), 0))}" value="{!opp.Amount}" />
+        </apex:column>
+     </apex:pageBlockTable>
+  </apex:pageBlock>
+</apex:page>

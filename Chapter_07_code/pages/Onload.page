@@ -1,0 +1,59 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 7_5
+
+	Page with an onload handler to pre-fill a form field
+	 
+ -->
+<apex:page standardController="Opportunity">
+  <apex:sectionHeader title="Onload Opportunity" />
+  <apex:form id="frm">
+    <apex:pageBlock title="Details" id="pb">
+      <apex:pageBlockButtons >
+        <apex:commandButton value="Save" action="{!save}" />
+        <apex:commandButton value="Cancel" action="{!cancel}" immediate="true" />
+      </apex:pageBlockButtons>
+      <apex:pageBlockSection columns="1" id="pbs">
+        <apex:inputField value="{!Opportunity.Name}" />
+        <apex:inputField value="{!Opportunity.AccountId}" />
+        <apex:inputField value="{!Opportunity.CloseDate}"/>
+        <apex:inputField value="{!Opportunity.Amount}" id="amount"/>
+      </apex:pageBlockSection>
+    </apex:pageBlock>
+  </apex:form>
+   
+  <script>
+  /* function to either set the supplied function as the onload handler or
+     add it to the end of the existing onload handler */
+	function addLoadEvent(fn) 
+	{ 
+    /* locate the existing onload handler */
+		var currentHandler = window.onload; 
+
+    /* if there is no function defined, simply used that passed in */
+		if (typeof currentHandler != 'function') 
+		{ 
+			window.onload = fn; 
+		} 
+		else 
+		{ 
+      /* create a new handler, which executes the current handler followed by followed
+         by the new one */
+			window.onload = function()  
+      		{ 	
+        		if (currentHandler) 
+        		{ 
+           			currentHandler(); 
+        		} 
+        		fn(); 
+      		} 
+    	}	  
+	} 
+	 
+  /* the onload handler we are adding - sets the value of the opportunity to 100000 */ 
+	addLoadEvent(function() 
+	{ 
+		document.getElementById('{!$Component.frm.pb.pbs.amount}').value='100000';
+	}); 
+  </script>
+</apex:page>

@@ -1,0 +1,42 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 2_7
+
+	Custom multi-select component
+	 
+ -->
+<apex:component controller="MultiSelectRelatedController">
+  <apex:attribute name="options" description="All select options" type="SelectOption[]" assignTo="{!allOptions}"/>
+  <apex:attribute name="result" description="Semi-colon seperated string of chosen options" type="StringContainer" required="true" assignTo="{!selected}"/>
+  <apex:attribute name="title" description="Title for the component" type="String"/>
+
+  <apex:pageBlockSection columns="2" title="{!title}">
+    
+    <!-- the available elements -->
+    <apex:pageBlockSectionItem >
+      <apex:outputText value="Available"/>
+      <apex:selectList style="width:80%" value="{!available}" id="avail" multiselect="true" size="10">
+        <apex:selectOptions value="{!availableItems}"/><br/>
+      </apex:selectList>
+    </apex:pageBlockSectionItem>
+      
+    <!-- the selected elements -->
+    <apex:pageBlockSectionItem >
+      <apex:outputText value="Selected"/>
+      <apex:selectList style="width:80%" value="{!chosen}" id="chosen" multiselect="true" size="10">
+        <apex:selectOptions value="{!chosenItems}"/><br/>
+      </apex:selectList>
+    </apex:pageBlockSectionItem>
+         
+    <!-- action buttons -->
+    <apex:pageBlockSectionItem >
+      <apex:outputText />
+      <apex:commandButton style="width:80%" value=">" action="{!add}" rerender="avail,chosen" />
+    </apex:pageBlockSectionItem>
+    <apex:pageBlockSectionItem >
+      <apex:outputText />
+      <apex:commandButton style="width:80%" value="<" action="{!remove}" rerender="avail,chosen" />
+    </apex:pageBlockSectionItem>
+  </apex:pageBlockSection>
+    
+</apex:component>

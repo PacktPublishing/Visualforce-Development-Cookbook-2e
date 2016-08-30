@@ -1,0 +1,21 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 6_2
+
+	Visualforce page containing a line chart
+	 
+ -->
+<apex:page controller="LineChartController">
+    <p style="font-size:18px; font-weight: bold;">Cases Closed - Last 12 Months - executed on&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}"><apex:param value="{!TODAY()}"/></apex:outputText></p>
+    <div style="margin-left: auto; margin-right: auto">
+      <apex:chart height="300" width="550" data="{!chartData}">
+       <apex:axis type="Numeric" position="left" fields="recordCount"
+            title="Record Count" grid="false" steps="1"/>
+       <apex:axis type="Category" position="bottom" fields="name"
+            title="Month">
+       </apex:axis>
+       <apex:lineSeries axis="bottom" fill="false" xField="name" yField="recordCount"
+           markerType="cross" markerSize="4" markerFill="#FF0000"/>
+     </apex:chart>
+   </div>
+</apex:page>

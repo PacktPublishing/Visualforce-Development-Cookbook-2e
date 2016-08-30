@@ -1,0 +1,44 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 7_7
+
+	Page that requests the user confirm if they navigate away
+	 
+ -->
+<apex:page standardController="Contact">
+  <apex:includescript value="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" />
+
+  <apex:form id="createform">
+    <apex:sectionHeader title="Contact Create" />
+    <apex:pageBlock title="Detail" id="pblock">
+      <apex:pageBlockButtons >
+        <apex:commandButton value="Save" action="{!save}" onclick="clearConfirm();"/> 
+        <apex:commandButton value="Cancel" action="{!cancel}" onclick="clearConfirm();" immediate="true" />
+      </apex:pageBlockButtons>
+      <apex:pageBlockSection columns="1" id="pbsection">
+        <apex:inputField value="{!Contact.Salutation}" />
+        <apex:inputField value="{!Contact.FirstName}" />
+        <apex:inputField value="{!Contact.LastName}" />
+        <apex:inputField id="contactemail" value="{!Contact.Email}" />
+        <apex:inputField id="contactphone" value="{!Contact.Phone}" />
+      </apex:pageBlockSection>
+    </apex:pageBlock>
+  </apex:form>
+  <script>
+	$(document).ready(
+		function()
+		{
+      		/* add the handler */
+			window.onbeforeunload = function() 
+			{
+				return 'This will lose any unsaved changes you have made';
+			}
+		});
+		 
+    	/* remove the handler as the user has clicked a button on the page */
+		function clearConfirm()
+		{
+			window.onbeforeunload=null;
+		}
+  </script>
+</apex:page>

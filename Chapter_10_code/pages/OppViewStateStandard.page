@@ -1,0 +1,27 @@
+<!--
+    
+    Visualforce Development Cookbook Recipe 10_5
+
+    Displays details of a collection of opportunities
+    using standard components. 
+     
+ -->
+<apex:page standardcontroller="Opportunity" recordSetVar="opps">
+  <apex:form >
+  
+     <apex:pageBlock >
+       <apex:pageBlockTable value="{!opps}" var="opp">
+         <apex:column headerValue="Id">
+           <apex:outputField value="{!opp.Id}" />
+         </apex:column>
+         <apex:column headerValue="Name">
+           <apex:inputField value="{!opp.Name}" />
+         </apex:column>
+         <apex:column headerValue="StageName">
+           <apex:outputField value="{!opp.StageName}" />
+         </apex:column>
+       </apex:pageBlockTable>
+     </apex:pageBlock> 
+   
+  </apex:form>
+</apex:page>

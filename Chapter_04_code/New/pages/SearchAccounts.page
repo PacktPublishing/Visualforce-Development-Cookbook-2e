@@ -1,0 +1,35 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 4_10
+
+	Form-based searching
+	 
+ -->
+<apex:page controller="SearchAccountsController">
+  <apex:form >
+    <apex:pageBlock title="Search Accounts">
+    
+      <!-- search criteria -->
+      <apex:pageBlockSection >
+        <apex:inputField value="{!searchAcc.Name}" required="false"/>
+        <apex:inputField value="{!searchAcc.Website}"/>
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel value="Industries"/>
+          <apex:selectList value="{!industries}" size="5" multiselect="true">
+            <apex:selectOptions value="{!industryOptions}"/>
+          </apex:selectList>
+        </apex:pageBlockSectionItem>
+        <apex:commandButton value="Go" action="{!executeSearch}" />
+      </apex:pageBlockSection>
+      
+      <!-- results -->
+      <apex:pageBlockTable value="{!results}" var="acc">
+        <apex:column value="{!acc.Name}"/>
+        <apex:column value="{!acc.Website}"/>
+        <apex:column value="{!acc.Industry}"/>
+      </apex:pageBlockTable>
+      
+    </apex:pageBlock>
+    
+  </apex:form>
+</apex:page>

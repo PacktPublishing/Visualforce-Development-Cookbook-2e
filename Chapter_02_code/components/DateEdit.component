@@ -1,0 +1,39 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 2_2
+
+	Component to allow the day, month and year of a date to be edited
+	 
+ -->
+<apex:component controller="DateEditController">
+  <apex:attribute type="DateContainer" name="dateContainerAtt" description="The date" assignTo="{!dateContainer}" required="true" />
+  <apex:attribute type="String" description="Page block section title" name="title" />
+  
+  <apex:pageBlockSection title="{!title}" columns="3">
+  
+    <!-- day edit -->
+    <apex:pageBlockSectionItem >
+        <apex:outputLabel value="Day" />
+        <apex:selectList value="{!day}" size="1">
+          <apex:selectOptions value="{!days}" />
+        </apex:selectList>
+    </apex:pageBlockSectionItem>
+
+    <!-- month edit -->
+    <apex:pageBlockSectionItem >
+        <apex:outputLabel value="Month" />
+        <apex:selectList value="{!month}" size="1">
+          <apex:selectOptions value="{!months}" />
+        </apex:selectList>
+    </apex:pageBlockSectionItem>
+    
+    <!-- year edit -->
+    <apex:pageBlockSectionItem >
+        <apex:outputLabel value="Year" />
+        <apex:selectList value="{!year}" size="1">
+          <apex:selectOptions value="{!years}" />
+        </apex:selectList>
+    </apex:pageBlockSectionItem>
+    
+  </apex:pageBlockSection>
+</apex:component>

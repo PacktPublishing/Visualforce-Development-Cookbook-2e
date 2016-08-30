@@ -1,0 +1,15 @@
+Visualforce Cookbook Second Edition Chapter 7 Code Download
+
+The code samples can be added to your Salesforce instance in one of two ways:
+
+Cut and Paste
+Simply paste the body of the file into the online code editor, as detailed in the 
+recipe instructions.
+
+Force.com IDE
+If you are using the Force.com IDE (Eclipse Plugin) you can install all of the pages
+and classes in one go.
+Copy the files from the pages and classes folders to the respective pages and 
+classes folder under the src folder of your Salesforce project.
+Right click the src folder of your Salesforce project and select Refresh from the
+context menu. This will update the server with the newly added files.

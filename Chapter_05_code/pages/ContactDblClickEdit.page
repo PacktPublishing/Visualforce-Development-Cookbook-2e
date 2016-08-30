@@ -1,0 +1,54 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 5_5
+
+	Inline editing a record from a list
+	 
+ -->
+<apex:page controller="ContactDblClickEditController">
+  <apex:sectionHeader title="Double Click to Edit" />
+  <apex:pageMessages id="msgs"/>
+  <apex:form >
+    <apex:actionFunction name="editContact" rerender="contacts, msgs">
+      <apex:param name="chosenContactId" value="" assignTo="{!chosenContactId}" />
+    </apex:actionFunction>
+    
+    <apex:pageBlock mode="mainDetail" id="contacts">
+      <apex:pageBlockButtons >
+        <apex:commandButton value="Save" action="{!save}"/>
+        <apex:commandButton value="Cancel" action="{!cancel}"/>
+      </apex:pageBlockButtons>
+      
+      <apex:pageBlockSection title="Contacts" columns="1">
+
+        <apex:pageBlockTable style="width:75%" value="{!contacts}" var="contact" >
+          <apex:column style="width:10%" headerValue="First Name" value="{!contact.FirstName}" rendered="{!contact.id!=chosenContactId}"
+                       ondblclick="editContact('{!contact.id}')" />
+          <apex:column style="width:10%" headerValue="Last Name" value="{!contact.LastName}" rendered="{!contact.id!=chosenContactId}"
+                       ondblclick="editContact('{!contact.id}')" />
+          <apex:column style="width:20%" headerValue="Email" value="{!contact.Email}" rendered="{!contact.id!=chosenContactId}"
+                       ondblclick="editContact('{!contact.id}')" />
+          <apex:column style="width:10%" headerValue="Actions" rendered="{!contact.id!=chosenContactId}" /> 
+
+          <apex:column style="width:10%" headerValue="First Name" rendered="{!contact.id==chosenContactId}">
+			<apex:inputField style="width:80%" value="{!contact.FirstName}" /> 
+          </apex:column>
+          <apex:column style="width:10%" headerValue="Last Name" rendered="{!contact.id==chosenContactId}">
+			<apex:inputField style="width:80%" value="{!contact.LastName}" /> 
+          </apex:column>
+          <apex:column style="width:15%" headerValue="Email" rendered="{!contact.id==chosenContactId}">
+			<apex:inputField style="width:70%" value="{!contact.Email}" /> 
+          </apex:column>
+
+          <apex:column style="width:15%" headerValue="Actions" rendered="{!contact.id==chosenContactId}">
+            <apex:commandButton action="{!done}" rerender="contacts, msgs" value="Done" /> 
+            <apex:commandButton action="{!done}" rerender="contacts, msgs" value="Cancel" immediate="true" /> 
+          </apex:column> 
+
+        </apex:pageBlockTable>
+
+      </apex:pageBlockSection>
+
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

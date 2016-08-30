@@ -1,0 +1,143 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 5_6
+
+	Creating a Visualforce report
+	 
+ -->
+<apex:page tabstyle="Case" controller="CaseReportController" sidebar="false">
+  <style type="text/css">
+    .dateFormat {
+    	display: none;
+    }
+  </style>
+
+  <script type="text/javascript">
+
+    function setFocusOnLoad() 
+    {
+      // do nothing - stop the date input field grabbing focus
+    }
+
+  </script>
+
+  <apex:form id="ov_form">
+  
+   <!-- filter block -->
+   <apex:pageBlock mode="mainDetail" id="ov_pb">
+     <table style="width:100%">
+      <tr>
+       <th width="50%">
+         <apex:outputLabel value="Choose timeframe: "/>
+       </th>
+       <th colspan="2" width="50%">
+	     <apex:outputLabel value="Enter custom criteria: "/>
+       </th>
+      </tr>
+      <tr>
+        <td>
+  	     <apex:selectList value="{!timeframe}" size="1" id="ov_tf">
+           <apex:selectOptions value="{!timeframeOptions}"/>
+         </apex:selectList>
+        </td>
+        <td>
+         <apex:outputLabel value=" Status "/>
+        </td>
+        <td>
+         <apex:selectList value="{!statusCriteria}" size="1">
+           <apex:selectOptions value="{!statusOptions}"/>
+     	</apex:selectList>
+        </td>
+      </tr>
+      <tr>
+        <td>
+			&nbsp;
+        </td>
+        <td>
+         <apex:outputLabel value="Start " />
+        </td>
+        <td>
+	     <apex:inputField value="{!carrier1.ActivityDate}"/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+			&nbsp;
+        </td>
+        <td>
+         <apex:outputLabel value="End " />
+        </td>
+        <td>
+     	 <apex:inputField value="{!carrier2.ActivityDate}"/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+		 <apex:commandButton value="Go" action="{!runTimeframeQuery}" id="ov_go"/>
+        </td>
+        <td colspan="2">
+   	     <apex:commandButton value="Go" action="{!runCustomQuery}" id="ov_go2"/>
+        </td>
+      </tr>
+     </table>
+   </apex:pageBlock>
+   
+   <!-- report block -->
+   <apex:pageBlock title="Case Summary" mode="mainDetail" rendered="{!run}">
+      <table class="list" style="width:75%" cellspacing="0" cellpadding="0">
+         <tr class="headerRow">
+            <th class="HeaderRow">Number</th>
+            <th class="HeaderRow">Created</th>
+            <th class="HeaderRow">Status</th>
+            <th class="HeaderRow">Status<br/>Total</th>
+            <th class="HeaderRow">Origin</th>
+            <th class="HeaderRow">Origin<br/>Total</th>
+          </tr>
+		<apex:repeat value="{!casesAndTotals}" var="ct">
+		  <tr>
+			<td style="width:10%"><apex:outputField value="{!ct.cs.CaseNumber}"/></td>
+			<td style="width:10%"><apex:outputField value="{!ct.cs.CreatedDate}"/></td>
+			<td style="width:10%"><apex:outputField value="{!ct.cs.Status}"/></td>
+			<td style="width:10%"><apex:outputText value="{!ct.statusTotal}"/></td>
+			<td style="width:10%"><apex:outputField value="{!ct.cs.Origin}"/></td>
+			<td style="width:10%"><apex:outputText value="{!ct.originTotal}"/></td>
+		  </tr>
+		</apex:repeat>
+   </table>
+   <br/>
+   <table class="list" style="width:75%" cellspacing="0" cellpadding="0">
+     <tr class="headerRow">
+       <th class="HeaderRow">Status</th>
+       <th class="HeaderRow">Total</th>
+     </tr>
+	 <apex:repeat value="{!statusTotals}" var="status">
+       <tr>
+         <td style="width:30%">
+           <apex:outputText value="{!status}" />
+         </td>
+         <td style="width:30%">
+           <apex:outputText value="{!statusTotals[status]}" />
+         </td>
+       </tr>
+     </apex:repeat>
+   </table>
+   <br/>
+   <table class="list" style="width:75%" cellspacing="0" cellpadding="0">
+     <tr class="headerRow">
+       <th class="HeaderRow">Origin</th>
+       <th class="HeaderRow">Total</th>
+     </tr>
+	 <apex:repeat value="{!originTotals}" var="origin">
+       <tr>
+         <td style="width:30%">
+           <apex:outputText value="{!origin}" />
+         </td>
+         <td style="width:30%">
+           <apex:outputText value="{!originTotals[origin]}" />
+         </td>
+       </tr>
+     </apex:repeat>
+   </table>
+   </apex:pageBlock>
+  </apex:form>
+</apex:page>

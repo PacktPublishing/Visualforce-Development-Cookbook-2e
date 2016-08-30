@@ -1,0 +1,118 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 8_4
+
+	Web to lead page.
+	 
+ -->
+<apex:page applyHtmlTag="false" applyBodyTag="false" standardcontroller="Lead" extensions="WebToLeadExt" sidebar="false" showHeader="false" standardStyleSheets="false">
+  <html>
+    <head>
+      <title>Force.com Sites Recipe 4</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+      <!-- SLDS -->
+      <apex:stylesheet value="{!URLFOR($Resource.SLDS_2_0_2, '/assets/styles/salesforce-lightning-design-system.min.css')}"/>
+    </head>
+    <body>
+      <div class="slds">
+         <apex:outputPanel rendered="{!error}">
+           <div class="slds-notify_container">
+             <div class="slds-notify slds-notify--alert slds-theme--error slds-theme--alert-texture" role="alert">
+               <span class="slds-assistive-text">Error</span>
+               <h2>{!errorMsg}</h2>
+             </div>
+           </div>
+		 </apex:outputPanel>
+		 
+        <div class="slds-page-header" role="banner">
+          <div class="slds-media">
+		    <div class="slds-media__body">
+              <p class="slds-page-header__title slds-truncate slds-align-middle" title="Demo Site">Demo Site</p>
+        	  <p class="slds-text-body--small slds-page-header__info">Visualforce Development Cookbook</p>
+            </div>
+          </div>
+        </div>
+      
+		<div class="slds-m-around--medium">
+          <div class="slds-card">
+            <div class="slds-card__header slds-grid grid--flex-spread">
+              <h2 class="slds-text-heading--small slds-truncate">Register your interest</h2>
+            </div>
+            <div class="slds-card__body slds-p-horizontal--small">
+              <div class="slds-text-body--regular slds-p-top--large slds-p-bottom--large">
+		        <apex:form>
+                  <div class="slds-form--horizontal">
+                    <div class="slds-form-element">
+                      <label class="slds-form-element__label">Salutation</label>
+                      <div class="slds-form-element__control">
+                        <apex:inputField styleClass="slds-select" value="{!Lead.Salutation}" />
+                      </div>
+                    </div>
+                    <div class="slds-form-element">
+                      <label class="slds-form-element__label">
+                        First Name
+                      </label>
+                      <div class="slds-form-element__control">
+                        <apex:inputField styleClass="slds-input" value="{!Lead.FirstName}" />
+                      </div>
+                    </div>
+                    <div class="slds-form-element is-required">
+                      <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Last Name</label>
+                      <div class="slds-form-element__control">
+                        <apex:inputText styleClass="slds-input" value="{!Lead.LastName}" />
+                      </div>
+                    </div>
+                    <div class="slds-form-element is-required">
+                      <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Company</label>
+                      <div class="slds-form-element__control">
+                        <apex:inputText styleClass="slds-input" value="{!Lead.Company}" />
+                      </div>
+                    </div>
+                    <div class="slds-form-element">
+                      <label class="slds-form-element__label">Email</label>
+                      <div class="slds-form-element__control">
+                        <apex:inputField styleClass="slds-input" value="{!Lead.Email}" />
+                      </div>
+                    </div>
+                    <div class="slds-form-element">
+                      <label class="slds-form-element__label">Phone</label>
+                      <div class="slds-form-element__control">
+                        <apex:inputField styleClass="slds-input" value="{!Lead.Phone}" />
+                      </div>
+                    </div>
+                  </div>
+                   <apex:commandButton value="Submit" action="{!save}" styleclass="slds-button slds-button--brand" />
+                   <input class="slds-button" type="reset" value="Reset" />          
+                </apex:form>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <table class="slds-table">
+          <tr>
+            <td>
+              <b>Lightning</b>
+            </td>
+            <td>
+              Built using the Salesforce Lightning Design System.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <b>Responsive</b>
+            </td>
+            <td>
+              Resize the browser window and see what happens
+            </td>
+          </tr>
+        </table>
+      
+        <div class="slds-text-align--center slds-m-top--large">
+          <div class="slds-text-body--small"><span style="font-style: italic">Salesforce, salesforce.com, Sales Cloud, Service Cloud, Collaboration Cloud, Custom Cloud, Force.com and Chatter are trademarks of salesforce.com, inc.</span></div>
+        </div>
+	 </div>       
+
+    </body>
+  </html>
+</apex:page>

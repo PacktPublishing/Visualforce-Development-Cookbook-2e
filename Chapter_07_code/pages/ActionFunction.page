@@ -1,0 +1,63 @@
+<apex:page controller="ActionFunctionController">
+
+  <apex:form >
+    <apex:actionFunction name="goCasesTabJS" action="{!goCasesTab}" />  
+  </apex:form>
+  
+  <apex:pageBlock title="Cases">
+    <apex:pageBlockTable value="{!cases}" var="case">
+      <apex:column style="width:10%" value="{!case.CaseNumber}" />
+      <apex:column style="width:10%" value="{!case.Account.Name}" />
+      <apex:column style="width:10%" value="{!case.Status}" />
+	</apex:pageBlockTable>
+  </apex:pageBlock>
+
+  <h2 id="countDown"></h2>
+  <script>
+    /* start the countdown - 15 seconds in total, updating the count
+       every 1000 milliseconds */
+	startCountDown(15, 1000, goCasesTabJS);
+
+
+	/* main countdown function */
+	function startCountDown(i, p, f) 
+	{
+		var pause = p;
+		var fn = f;
+		
+		/* find the element on the page to write the countdown seconds into */		
+		var countDownObj = document.getElementById("countDown");
+		if (countDownObj == null) 
+		{
+			alert("Element not found, check your id");
+			return;
+		}
+				
+		/* function to write the number of seconds into the countdown element
+		   and either schedule itself to run in a second or execute the execute
+		   actionfunction to go to the cases tab*/
+		countDownObj.count = function(i) 
+		{
+			countDownObj.innerHTML = 'Going to tab in ' + i + ' seconds';
+			if (i == 0) 
+			{
+				/* the countdown has expired - execute the function */
+				fn();
+				return;
+			}
+			/* the countdown is still going - schedule this function to run
+			   in one second and reduce the seconds count by 1 */
+			setTimeout(function() 
+				{
+					countDownObj.count(i - 1);
+				},
+				pause
+			);
+		}	
+		
+		/* execute the function for the first time - it will then schedule
+		   itself to run each second until the countdown hits zero */
+		countDownObj.count(i);
+	}
+  </script>
+</apex:page>

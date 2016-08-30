@@ -1,0 +1,37 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 3_3
+
+	Add error message to non-input fields.
+	 
+ -->
+<apex:page standardController="Contact" extensions="InputSelectErrorExt">
+  <apex:form >
+    <apex:sectionHeader title="Create Contact" />
+    <apex:pageBlock >
+      <apex:pageBlockButtons >
+        <apex:commandButton value="Save" action="{!save}" />
+        <apex:commandButton value="Cancel" action="{!cancel}" />
+      </apex:pageBlockButtons>
+      <apex:pageBlockSection >
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel value="Choose account" />
+          <apex:outputPanel >
+            <apex:selectList value="{!accountIdVal.value}" size="1" styleClass="{!IF(accountIdVal.hasError,'error','')}">
+              <apex:selectOptions value="{!accountOptions}" />
+            </apex:selectList>
+            <div class="errorMsg" style="display:{!IF(accountIdVal.hasError,'block','none')}"><strong>Error:</strong>&nbsp;{!accountIdVal.error}</div>
+          </apex:outputPanel>
+        </apex:pageBlockSectionItem>
+        <apex:pageBlockSectionItem />
+        
+        <apex:inputField value="{!Contact.Salutation}"/>
+        <apex:inputField value="{!Contact.FirstName}"/>
+        <apex:pageBlockSectionItem />
+        <apex:inputField value="{!Contact.LastName}"/>
+        <apex:inputField value="{!Contact.Phone}"/>
+        <apex:inputField value="{!Contact.Email}"/>
+      </apex:pageBlockSection>
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

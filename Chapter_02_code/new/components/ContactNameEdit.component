@@ -1,0 +1,15 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 2_1
+
+	Component to allow a contacts name and title to be updated
+	 
+ -->
+<apex:component >
+  <apex:attribute name="Contact" type="Contact" description="The contact to edit" required="true" />
+  <apex:pageBlockSection columns="3" title="Name">
+    <apex:inputField value="{!Contact.Salutation}"/>
+    <apex:inputField value="{!Contact.FirstName}"/>
+    <apex:inputField value="{!Contact.LastName}"/>
+  </apex:pageBlockSection>
+</apex:component>

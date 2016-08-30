@@ -1,0 +1,142 @@
+<!--
+    
+    Visualforce Development Cookbook Recipe 9_2
+
+    Create an Account and Contact Record in Salesforce1 with Lightning
+     
+ -->
+<apex:page applyHtmlTag="false" applyBodyTag="false" showHeader="false" docType="html-5.0"
+           controller="SF1LightningFormController">
+  <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <head>
+      <title>
+        <apex:insert name="title" />
+      </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+      <!-- SLDS -->
+      <apex:stylesheet value="{!URLFOR($Resource.SLDS_2_0_2, '/assets/styles/salesforce-lightning-design-system.min.css')}"/>
+    </head>
+    <body>
+    
+      <div class="slds">
+        <div class="slds-page-header" role="banner">
+          <div class="slds-media">
+            <div class="slds-media__body">
+              <p class="slds-page-header__title slds-truncate slds-align-middle" title="Demo Site">Create Account</p>
+              <p class="slds-text-body--small slds-page-header__info">Visualforce Development Cookbook</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slds-form--horizontal slds-m-around--medium">
+        
+        <div class="slds-heading--small slds-m-bottom--small">Enter the Account and Contact details and press the Save button</div>
+        
+          <div class="slds-form-element">
+            <label class="slds-form-element__label">Name</label>
+            <div class="slds-form-element__control">
+              <input id="accName" class="slds-input" type="text" placeholder="Name ..." />
+            </div>
+          </div>
+          
+          <div class="slds-form-element">
+            <label class="slds-form-element__label">Industry</label>
+            <div class="slds-form-element__control">
+              <div class="slds-select_container">
+                <select id="accIndustry" class="slds-select">
+                  <option>Agriculture</option>
+                  <option>Apparel</option>
+                  <option>Banking</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          
+          <div class="slds-form-element">
+            <label class="slds-form-element__label">Website</label>
+            <div class="slds-form-element__control">
+              <input id="accWebsite" class="slds-input" type="text" placeholder="www..." />
+            </div>
+          </div>
+          
+          <div class="slds-form-element">
+            <label class="slds-form-element__label">First Name</label>
+            <div class="slds-form-element__control">
+              <input id="contFirstName" class="slds-input" type="text" placeholder="First ..." />
+            </div>
+          </div>
+          
+          <div class="slds-form-element">
+            <label class="slds-form-element__label">Last Name</label>
+            <div class="slds-form-element__control">
+              <input id="contLastName" class="slds-input" type="text" placeholder="Last ..." />
+            </div>
+          </div>
+          
+          <div class="slds-form-element">
+            <label class="slds-form-element__label">Email</label>
+            <div class="slds-form-element__control">
+              <input id="contEmail" class="slds-input" type="text" placeholder="example@example.com" />
+            </div>
+          </div>
+          
+          <div class="slds-form-element">
+            <button class="slds-button slds-button--brand" onclick="save();">Save</button>
+          </div>
+          
+        </div>
+
+
+      </div>
+      
+      <script>
+         // saves the account and contact 
+         function save() {
+             var name=document.querySelector('#accName').value;
+             var industry=document.querySelector('#accIndustry').value;
+             var website=document.querySelector('#accWebsite').value;
+         
+             var account = {Name : name,
+                            Industry : industry,
+                            Website : website};
+                  
+             var fName=document.querySelector('#contFirstName').value;
+             var lName=document.querySelector('#contLastName').value;
+             var email=document.querySelector('#contEmail').value;
+             
+             var contact = {FirstName : fName,
+                            LastName : lName,
+                            Email : email};
+
+             // send JSON representations of the account/contact to cut
+             // down on the number of parameters
+             SF1LightningFormController.CreateAccountAndContact(
+        	   		JSON.stringify(account), JSON.stringify(contact),
+        			createAccountContactResponseHandler);
+             
+         }
+         
+         // callback for the remote method
+         function createAccountContactResponseHandler(result, event) { 
+             if (event.status) {
+                 alert('Account and contact created');
+                 if (typeof sforce !== 'undefined' && sforce.one) {
+                     sforce.one.navigateToSObject(result);
+                 }
+                 else {
+                     window.location='/' + result;
+                 }
+             }
+             else if (event.type === 'exception') {
+                 alert('Exception in Remote Method:\n' + event.message);
+             }
+             else {
+                 alert('Something went wrong - that\'s all I know');
+             }
+         }
+             
+      </script>
+      
+    </body>
+  </html>
+</apex:page>

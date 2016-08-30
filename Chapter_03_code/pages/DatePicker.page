@@ -1,0 +1,79 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 3_6
+
+	Add a custom datepicker to a form
+	 
+ -->
+<apex:page standardController="Contact">
+
+  <!-- include the custom datepicker resources -->
+  <apex:includeScript value="{!URLFOR($Resource.D2DCalendar,'calendar/calendar.js')}"/>
+  <apex:stylesheet value="{!URLFOR($Resource.D2DCalendar,'calendar/calendar_green.css')}" />
+  
+  <apex:pageMessages />
+  <apex:sectionHeader title="Custom Date Picker" subtitle="Create Contact" />
+  <apex:form id="frm">  
+    <apex:pageblock title="Opportunity" id="pb">
+      <apex:pageBlockButtons >
+        <apex:commandButton value="Save" action="{!save}" />
+        <apex:commandButton value="Cancel" action="{!Cancel}" />
+      </apex:pageBlockButtons>
+      <apex:pageBlockSection id="pbs">
+        <apex:inputField value="{!Contact.Salutation}" />
+        <apex:inputField value="{!Contact.FirstName}" />
+        <apex:inputField value="{!Contact.LastName}" />
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel value="Date of Birth" for="birthdate" />
+          <apex:inputText id="birthdate" size="10" value="{!Contact.BirthDate}" onfocus="initialiseCalendar(this, '{!$Component.birthdate}')"/>
+        </apex:pageBlockSectionItem>
+      </apex:pageBlockSection>
+    </apex:pageblock>
+  </apex:form>
+  
+  <!-- JavaScript to interact with the custom date picker -->
+  <script>
+  
+    // set the date format information
+    function fnSetDateFormat(oDateFormat)
+    {
+      oDateFormat['FullYear'];  //Example = 2007
+      oDateFormat['Year'];   //Example = 07
+      oDateFormat['FullMonthName']; //Example = January
+      oDateFormat['MonthName'];  //Example = Jan
+      oDateFormat['Month'];   //Example = 01
+      oDateFormat['Date'];   //Example = 01
+      oDateFormat['FullDay'];   //Example = Sunday
+      oDateFormat['Day'];    //Example = Sun
+      oDateFormat['Hours'];   //Example = 01
+      oDateFormat['Minutes'];   //Example = 01
+      oDateFormat['Seconds'];   //Example = 01
+  
+      var sDateString;
+  
+      // Use dd/mm/yyyy format
+      sDateString = oDateFormat['Date'] +"/"+ oDateFormat['Month'] +"/"+ oDateFormat['FullYear']; 
+      return sDateString;
+    }
+    
+    // initialise the calendar
+    function initialiseCalendar(obj, eleId) 
+    {
+      var element=document.getElementById(eleId);
+      var params='close=true';
+      if (null!=element)
+      {
+        if (element.value.length>0)
+        {
+          // date is formatted dd/mm/yyyy - pull out the month and year
+          var month=element.value.substr(3,2);
+          var year=element.value.substr(6,4);
+          params+=',month='+month;
+          params+=',year='+year;
+        }
+      }
+      
+      fnInitCalendar(obj, eleId, params);
+    }
+  </script>
+</apex:page>

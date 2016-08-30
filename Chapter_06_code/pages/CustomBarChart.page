@@ -1,0 +1,22 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 6_3
+
+	Visualforce page containing a customised bar chart
+	 
+ -->
+<apex:page controller="BarChartController">
+    <p style="font-size:18px; font-weight: bold;">Opportunity Value - Last 12 Months - executed on&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}"><apex:param value="{!TODAY()}"/></apex:outputText></p>
+    <div style="margin-left: auto; margin-right: auto">
+      <apex:chart height="300" width="550" data="{!chartData}">
+       <apex:axis type="Category" position="left" fields="name"
+            title="Month" />
+       <apex:axis type="Numeric" position="bottom" fields="oppTotal"
+            title="Total" grid="true"/>
+       <apex:barSeries axis="bottom" xField="oppTotal" yField="name" 
+       			colorSet="#00A" highlight="false" title="Opportunity Total" 
+       			orientation="horizontal"/>
+       <apex:Legend position="bottom" />
+     </apex:chart>
+   </div>
+</apex:page>

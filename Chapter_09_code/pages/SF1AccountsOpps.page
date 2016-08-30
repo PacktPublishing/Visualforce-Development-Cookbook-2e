@@ -1,0 +1,121 @@
+<!--
+    
+    Visualforce Development Cookbook Recipe 9_1
+
+    Account + opportunities for Salesforce1
+     
+ -->
+<apex:page applyHtmlTag="false" applyBodyTag="false" showHeader="false" docType="html-5.0"
+           standardController="Account">
+  <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <head>
+      <title>
+        <apex:insert name="title" />
+      </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+      <!-- SLDS -->
+      <apex:stylesheet value="{!URLFOR($Resource.SLDS_2_0_2, '/assets/styles/salesforce-lightning-design-system.min.css')}"/>
+    </head>
+    <body>
+      <div class="slds">
+        <div class="slds-page-header" role="banner">
+          <div class="slds-media">
+            <div class="slds-media__body">
+              <p class="slds-page-header__title slds-truncate slds-align-middle" title="Demo Site">Account + Opportunities</p>
+              <p class="slds-text-body--small slds-page-header__info">Visualforce Development Cookbook</p>
+            </div>
+          </div>
+        </div>
+
+		<div class="slds-m-bottom-x--small slds-m-top--small slds-text-align--center">
+          <a href="javascript:navigateToContacts();" class="slds-button slds-button--neutral">View Contacts</a>
+        </div>
+        
+        <div class="slds-m-around--medium slds-card">
+          <div class="slds-media slds-tile">
+            <div class="slds-media__figure">
+              <svg aria-hidden="true" class="slds-icon slds-icon-standard-account">
+                <use xlink:href="{!URLFOR($Resource.SLDS_2_0_2, '/assets/icons/standard-sprite/svg/symbols.svg#account')}"></use>
+              </svg>
+            </div>
+            <div class="slds-media__body">
+              <p class="slds-tile__title slds-truncate"><a href="javascript:void(0);">{!Account.Name}</a></p>
+              <div class="slds-tile__detail slds-text-body--small slds-m-top--small">
+                <div class="slds-grid slds-wrap">
+                  <div class="slds-col slds-size--1-of-3">
+                    <strong>Industry:</strong>
+                  </div>
+                  <div class="slds-col slds-size--2-of-3">
+                    {!Account.Industry}
+                  </div>
+                  <div class="slds-col slds-size--1-of-3">
+                    <strong>Website:</strong>
+                  </div>
+                  <div class="slds-col slds-size--2-of-3">
+                    {!Account.Website}
+                  </div>
+                  <div class="slds-col slds-size--1-of-3">
+                    <strong>Employees:</strong>
+                  </div>
+                  <div class="slds-col slds-size--2-of-3">
+                    {!Account.NumberOfEmployees}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>          
+        </div>
+        
+        <apex:repeat value="{!Account.Opportunities}" var="Opportunity">
+        <div class="slds-m-around--medium slds-card">
+          <div class="slds-media slds-tile">
+            <div class="slds-media__figure">
+              <svg aria-hidden="true" class="slds-icon slds-icon-standard-opportunity">
+                <use xlink:href="{!URLFOR($Resource.SLDS_2_0_2, '/assets/icons/standard-sprite/svg/symbols.svg#opportunity')}"></use>
+              </svg>
+            </div>
+            <div class="slds-media__body">
+              <p class="slds-tile__title slds-truncate"><a href="javascript:void(0);">{!Opportunity.Name}</a></p>
+              <div class="slds-tile__detail slds-text-body--small slds-m-top--small">
+                <div class="slds-grid slds-wrap">
+                  <div class="slds-col slds-size--1-of-3">
+                    <strong>Amount:</strong>
+                  </div>
+                  <div class="slds-col slds-size--2-of-3">
+                    {!Opportunity.Amount}
+                  </div>
+                  <div class="slds-col slds-size--1-of-3">
+                    <strong>Stage:</strong>
+                  </div>
+                  <div class="slds-col slds-size--2-of-3">
+                    {!Opportunity.StageName}
+                  </div>
+                  <div class="slds-col slds-size--1-of-3">
+                    <strong>Probability:</strong>
+                  </div>
+                  <div class="slds-col slds-size--2-of-3">
+                    {!Opportunity.Probability}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>          
+        </div>
+        </apex:repeat>
+      </div>
+      
+      <script>
+          function navigateToContacts()
+          {
+              var target='/apex/SF1AccountsContacts?id={!Account.id}';
+              if (typeof sforce !== 'undefined' && sforce.one) {
+                  sforce.one.navigateToURL(target);
+              }
+              else {
+                  window.location=target;
+              }
+          }
+      </script>
+    </body>
+  </html>
+</apex:page>

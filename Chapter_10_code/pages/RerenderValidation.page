@@ -1,0 +1,40 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 10_2
+
+	Rerendering a pagemessages component to ensure errors are not swallowed
+	 
+ -->
+<apex:page standardController="Opportunity" extensions="RerenderValidationExt">
+  <apex:form >
+  
+    <!-- the pagemessages component that will be rerendered -->
+    <apex:pageMessages id="msgs" />
+    
+    <apex:pageBlock mode="mainDetail" title="Create Opportunity">
+    
+      <apex:pageBlockButtons >
+        <apex:commandButton value="Save" action="{!save}" />
+        <apex:commandButton value="Cancel" action="{!cancel}" />
+      </apex:pageBlockButtons>
+      
+      <apex:pageBlockSection title="Detail">
+        <apex:inputField value="{!Opportunity.Name}"/>
+        <apex:inputField value="{!Opportunity.CloseDate}" />
+        <apex:inputField value="{!Opportunity.StageName}" />
+        <apex:inputField value="{!Opportunity.Amount}" />
+      </apex:pageBlockSection>
+      
+      <apex:pageBlockSection title="Account" id="account">
+        <apex:inputField value="{!Opportunity.AccountId}">
+          <apex:actionSupport event="onchange" action="{!accountSelected}" rerender="account, msgs" status="stat"/>
+        </apex:inputField>
+        <apex:pageBlockSectionItem />
+        <apex:outputField value="{!Opportunity.Account.Website}"/>
+        <apex:outputField value="{!Opportunity.Account.Phone}"/>
+	    <apex:actionStatus startText="Getting detail" id="stat" />
+      </apex:pageBlockSection>
+      
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

@@ -1,0 +1,60 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 3_1
+
+	Edit a contact record in but do not allow reparenting of account 
+	 
+ -->
+<apex:page standardController="Contact">
+  <apex:form >
+    <apex:sectionHeader title="{!IF (Contact.id==null, 'Create', 'Edit')} Contact" />
+    <apex:pageBlock mode="mainDetail">
+    
+      <apex:pageBlockButtons >
+        <apex:commandButton value="Save" action="{!save}"/>
+        <apex:commandButton value="Cancel" action="{!cancel}" />
+      </apex:pageBlockButtons>
+      
+      <!-- account - editable until the record is saved with this field populated  -->
+      <apex:pageBlockSection title="Account Information">
+         <apex:inputField value="{!Contact.AccountId}" rendered="{!null==Contact.AccountId}" />
+         <apex:outputField value="{!Contact.AccountId}" rendered="{!null!=Contact.AccountId}" />
+      </apex:pageBlockSection>
+      
+      <apex:pageBlockSection title="Details">
+        <apex:inputField value="{!Contact.Salutation}"/>
+        <apex:inputField value="{!Contact.FirstName}"/>
+        <apex:pageBlockSectionItem />
+        <apex:inputField value="{!Contact.LastName}" />
+        <apex:inputField value="{!Contact.ReportsToId}" />
+        <apex:inputField value="{!Contact.Department}" />
+        <apex:inputField value="{!Contact.AssistantName}" />
+      </apex:pageBlockSection>
+      
+      <apex:pageBlockSection title="Channels">
+        <apex:inputField value="{!Contact.Phone}"/>
+        <apex:pageBlockSectionItem />
+        <apex:inputField value="{!Contact.HomePhone}"/>
+        <apex:inputField value="{!Contact.DoNotCall}"/>
+        <apex:inputField value="{!Contact.Email}"/>
+        <apex:inputField value="{!Contact.HasOptedOutOfEmail}"/>
+        <apex:inputField value="{!Contact.Fax}"/>
+        <apex:inputField value="{!Contact.HasOptedOutOfFax}"/>
+      </apex:pageBlockSection>
+      
+      <apex:pageBlockSection title="Address">
+        <apex:inputField value="{!Contact.MailingStreet}" />
+        <apex:inputField value="{!Contact.OtherStreet}" />
+        <apex:inputField value="{!Contact.MailingCity}" />
+        <apex:inputField value="{!Contact.OtherCity}" />
+        <apex:inputField value="{!Contact.MailingState}" />
+        <apex:inputField value="{!Contact.OtherState}" />
+        <apex:inputField value="{!Contact.MailingPostalCode}" />
+        <apex:inputField value="{!Contact.OtherPostalCode}" />
+        <apex:inputField value="{!Contact.MailingCountry}" />
+        <apex:inputField value="{!Contact.OtherCountry}" />
+      </apex:pageBlockSection>
+      
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

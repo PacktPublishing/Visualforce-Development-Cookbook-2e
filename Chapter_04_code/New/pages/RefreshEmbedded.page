@@ -1,0 +1,26 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 4_6
+
+	Refreshing record detail from embedded Visualforce
+	 
+ -->
+<apex:page standardController="Case" extensions="RefreshEmbeddedExt">
+  <apex:form >
+  
+    <!-- conditionally rendered panel to refresh the top level window -->
+    <apex:outputPanel rendered="{!refreshPage}">
+      <script>
+        window.top.location='{!pageRef}';
+      </script>
+    </apex:outputPanel>  
+    
+    <apex:pageBlock title="Add Comment">
+      <apex:pageBlockSection columns="1">
+        <apex:inputField style="width:90%" value="{!cc.CommentBody}" />
+        <apex:commandButton value="Save" action="{!Save}" />
+      </apex:pageBlockSection>
+    </apex:pageBlock>
+    
+  </apex:form>
+</apex:page>

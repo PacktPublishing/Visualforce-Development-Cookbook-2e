@@ -1,0 +1,95 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 8_1
+
+	Site home Visualforce page
+	 
+ -->
+<apex:page applyHtmlTag="false" applyBodyTag="false" sidebar="false" showHeader="false" standardStyleSheets="false">
+  <html>
+    <head>
+      <title>Force.com Sites Recipe 1</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+      <!-- SLDS -->
+      <apex:stylesheet value="{!URLFOR($Resource.SLDS_2_0_2, '/assets/styles/salesforce-lightning-design-system.min.css')}"/>
+      
+    </head>
+    <body>
+      <div class="slds">
+        <div class="slds-page-header" role="banner">
+          <div class="slds-media">
+		    <div class="slds-media__body">
+              <p class="slds-page-header__title slds-truncate slds-align-middle" title="Demo Site">Demo Site</p>
+        	  <p class="slds-text-body--small slds-page-header__info">Visualforce Development Cookbook</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="slds-grid slds-wrap">
+          <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-3">
+            <div class="slds-card slds-m-around--medium ">
+              <div class="slds-card__header slds-grid grid--flex-spread">
+                <h2 class="slds-text-heading--small slds-truncate">Public</h2>
+              </div>
+              <div class="slds-card__body slds-p-horizontal--small">
+                <div class="slds-text-body--regular slds-p-top--large slds-p-bottom--large">
+                  This site is publicly accessible. There is no requirement for a user to login in order to access the public information
+                </div>
+              </div>
+            </div>          
+          </div>
+          <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-3">
+            <div class="slds-card slds-m-around--medium ">
+              <div class="slds-card__header slds-grid grid--flex-spread">
+                <h2 class="slds-text-heading--small slds-truncate">Branded</h2>
+              </div>
+              <div class="slds-card__body slds-p-horizontal--small">
+                <div class="slds-text-body--regular slds-p-top--large slds-p-bottom--large">
+                  The site is constructed from Visualforce pages that use the Salesforce Lightning Design System.
+                </div>
+              </div>
+            </div>          
+          </div>
+          <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-3">
+            <div class="slds-card slds-m-around--medium ">
+              <div class="slds-card__header slds-grid grid--flex-spread">
+                <h2 class="slds-text-heading--small slds-truncate">Static</h2>
+              </div>
+              <div class="slds-card__body slds-p-horizontal--small">
+                <div class="slds-text-body--regular slds-p-top--large slds-p-bottom--large">
+                  The content of this page is static.  Other pages in this site demonstrate how to access Salesforce data.
+                </div>
+              </div>
+            </div>          
+          </div>
+        </div>
+        
+        <table class="slds-table">
+          <tr>
+            <td>
+              <b>Lightning</b>
+            </td>
+            <td>
+              Built using the Salesforce Lightning Design System.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <b>Responsive</b>
+            </td>
+            <td>
+              Resize the browser window and see what happens
+            </td>
+          </tr>
+        </table>
+      
+        <div class="slds-text-align--center slds-m-top--large">
+          <div class="slds-text-body--small"><span style="font-style: italic">Salesforce, salesforce.com, Sales Cloud, Service Cloud, Collaboration Cloud, Custom Cloud, Force.com and Chatter are trademarks of salesforce.com, inc.</span></div>
+        </div>
+      
+      </div>
+            
+
+    </body>
+  </html>
+</apex:page>

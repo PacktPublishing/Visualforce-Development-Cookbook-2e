@@ -1,0 +1,25 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 6_6
+
+	Visualforce page containing a chart with three axes
+	 
+ -->
+<apex:page controller="MultiAxisChartController">
+    <p style="font-size:18px; font-weight: bold;">Opportunities Overview - Last 12 Months - as of&nbsp;<apex:outputText value="{0,date,dd/MM/yyyy}"><apex:param value="{!TODAY()}"/></apex:outputText></p>
+    <div style="margin-left: auto; margin-right: auto">
+      <apex:chart height="400" width="550" data="{!chartData}">
+       <apex:axis type="Category" position="bottom" fields="name"
+            title="Month" />
+       <apex:axis type="Numeric" position="left" fields="recordCount"
+            title="Record Count" grid="false" steps="5"/>
+       <apex:axis type="Numeric" position="right" fields="wonAmount,lostAmount"
+            title="Opportunity Amount" grid="false" steps="5"/>
+       <apex:lineSeries axis="bottom" fill="false" xField="name" yField="recordCount"
+           markerType="circle" markerSize="4" markerFill="#00FF00" title="Record Count"/>
+       <apex:barSeries colorSet="#A00,#00A" orientation="vertical" axis="bottom" xField="name" yField="lostAmount,wonAmount" 
+       				title="Lost, Won" stacked="true"/>
+       <apex:legend position="top" />
+     </apex:chart>
+   </div>
+</apex:page>

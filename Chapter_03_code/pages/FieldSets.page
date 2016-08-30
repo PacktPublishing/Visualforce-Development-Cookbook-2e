@@ -1,0 +1,27 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 3_4
+
+	Page to display fields from two field sets
+	 
+ -->
+<apex:page standardController="Contact">
+  <apex:form >
+    <apex:pageBlock title="Contact">
+      <apex:pageBlockButtons >
+        <apex:commandButton value="Save" action="{!Save}" />
+        <apex:commandButton value="Cancel" action="{!Cancel}" />
+      </apex:pageBlockButtons>
+      <apex:pageBlockSection title="General">
+        <apex:repeat value="{!$ObjectType.Contact.FieldSets.Detail}" var="field">
+          <apex:inputField value="{!Contact[field]}" />
+        </apex:repeat>
+      </apex:pageBlockSection>
+      <apex:pageBlockSection title="Address">
+        <apex:repeat value="{!$ObjectType.Contact.FieldSets.Address_Information}" var="field">
+          <apex:inputField value="{!Contact[field]}" />
+        </apex:repeat>
+      </apex:pageBlockSection>
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

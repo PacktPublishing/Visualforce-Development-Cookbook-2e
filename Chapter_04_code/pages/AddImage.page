@@ -1,0 +1,28 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 4_3
+
+	Attaching an image to a record
+	 
+ -->
+<apex:page standardController="Contact" extensions="AddImageExt">
+  <apex:form >
+    <apex:pageBlock mode="mainDetail">
+      <apex:pageBlockSection >
+      
+        <!-- display the existing image -->
+        <apex:pageBlockSectionItem >
+		  <apex:image value="/servlet/servlet.FileDownload?file={!ImageId}" rendered="{!NOT(ISBLANK(ImageId))}" />
+		</apex:pageBlockSectionItem>
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel value="Upload"/>
+          <apex:outputPanel >
+            <!-- allow a new image to be uploaded -->
+            <apex:inputFile id="uploadfile" value="{!att.body}" filename="{!att.Name}"/><br/>
+            <apex:commandButton value="Upload" action="{!uploadImage}" />
+          </apex:outputPanel>
+         </apex:pageBlockSectionItem>
+      </apex:pageBlockSection>
+    </apex:pageBlock>
+  </apex:form>  
+</apex:page>

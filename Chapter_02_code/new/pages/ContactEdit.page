@@ -1,0 +1,29 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 2_1
+
+	Page that passes parameters to a component
+	 
+ -->
+<apex:page standardController="Contact">
+  <apex:sectionHeader title="Contact Edit" subtitle="{!contact.name}" />
+  <apex:form >
+    <apex:pageBlock mode="mainDetail">
+      <apex:pageBlockButtons >
+        <apex:commandButton value="Save" action="{!save}" />
+        <apex:commandButton value="Cancel" action="{!cancel}" />
+      </apex:pageBlockButtons>
+      
+      <!--  component providing name editing functionality -->
+      <c:ContactNameEdit contact="{!Contact}"/>
+      <apex:pageBlockSection title="Channels">
+        <apex:inputField value="{!contact.phone}" />
+        <apex:inputField value="{!contact.doNotCall}" />
+        <apex:inputField value="{!contact.email}" />
+        <apex:inputField value="{!contact.hasOptedOutOfEmail}" />
+        <apex:inputField value="{!contact.fax}" />
+        <apex:inputField value="{!contact.hasOptedOutOfFax}" />
+      </apex:pageBlockSection>
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

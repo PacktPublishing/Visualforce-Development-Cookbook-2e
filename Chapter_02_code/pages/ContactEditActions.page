@@ -1,0 +1,13 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 2_3
+
+	Page that passes action method parameters to a component
+	 
+ -->
+<apex:page standardController="Contact">
+  <apex:pageMessages />
+  <apex:form >
+    <c:ContactEdit contact="{!contact}" saveAction="{!save}" cancelAction="{!cancel}" />
+  </apex:form>
+</apex:page>

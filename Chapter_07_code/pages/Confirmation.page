@@ -1,0 +1,37 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 7_3
+
+	Confirmation dialog
+	 
+ -->
+<apex:page standardController="Account">
+  <apex:sectionHeader title="Create Account" />
+  <apex:form >
+    <apex:pageBlock title="Details">
+      <apex:pageBlockButtons >
+        <apex:commandButton value="Save" action="{!save}" onclick="return confirmSave();" /> 
+        <apex:commandButton value="Cancel" action="{!cancel}" onclick="return confirmCancel();" immediate="true" />
+      </apex:pageBlockButtons> 
+      <apex:pageBlockSection columns="1">
+        <apex:inputField value="{!account.Name}" />
+        <apex:inputField value="{!account.Type}" />
+        <apex:inputField value="{!account.Industry}" />
+      </apex:pageBlockSection>
+    </apex:pageBlock>
+  
+    <script>
+    /* Function to make the user confirm the save */
+		function confirmSave()
+		{
+			return confirm("Are you sure you want to save your changes?");
+		}
+    
+    /* Function to make the user confirm the cancel */
+		function confirmCancel()
+		{
+			return confirm("This will discard your changes\nAre you sure you wish to continue?");
+		}
+    </script>
+  </apex:form>
+</apex:page>

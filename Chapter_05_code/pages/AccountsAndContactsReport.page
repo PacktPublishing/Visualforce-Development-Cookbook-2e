@@ -1,0 +1,18 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 5_?
+
+	Display information from a report
+	 
+ -->
+<apex:page controller="AccountsAndContactsReportController">
+  <apex:sectionHeader title="Accounts and Contacts" />
+  <apex:repeat value="{!accountNames}" var="accName">
+    <p>Account {!accName} contacts:</p>
+    <ul>
+      <apex:repeat value="{!reportDataMap[accName]}" var="contName">
+      	<li>{!contName}</li>
+      </apex:repeat>
+    </ul>
+  </apex:repeat>
+</apex:page>

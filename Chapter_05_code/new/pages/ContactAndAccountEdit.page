@@ -1,0 +1,38 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 5_1
+
+	Editing a record and its parent
+	 
+ -->
+<apex:page StandardController="Contact" extensions="ContactAndAccountEditExt">
+  <apex:outputField value="{!contact.AccountId}" rendered="false" />
+  
+  <apex:form >
+    <apex:sectionHeader title="Contact and Account Edit"/>
+    
+    <apex:pageBlock mode="mainDetail">
+      <apex:pageBlockButtons >
+        <apex:commandButton value="Save" action="{!save}" />
+        <apex:commandButton value="Cancel" action="{!cancel}" />
+      </apex:pageBlockButtons>
+      
+      <!-- child contact record edit section -->
+      <apex:pageBlockSection title="Contact" columns="1">
+        <apex:inputField value="{!Contact.FirstName}" />
+        <apex:inputField value="{!Contact.LastName}" />
+        <apex:inputField value="{!Contact.Email}" />
+        <apex:inputField value="{!Contact.Phone}" />
+      </apex:pageBlockSection>
+      
+      <!-- parent account record edit section -->
+      <apex:pageBlockSection title="Account" columns="1">
+        <apex:inputField value="{!acc.Name}" />
+        <apex:inputField value="{!acc.Industry}" />
+        <apex:inputField value="{!acc.Type}" />
+        <apex:inputField value="{!acc.NumberOfEmployees}" />
+      </apex:pageBlockSection>
+      
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

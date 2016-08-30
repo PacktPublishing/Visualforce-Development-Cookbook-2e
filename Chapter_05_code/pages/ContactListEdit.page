@@ -1,0 +1,44 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 5_2
+
+	Managing a list of records
+	 
+ -->
+<apex:page controller="ContactListEditController">
+  <style>
+    .requiredHeader{
+    	color: #F00;
+    }    
+  </style>
+  
+  <apex:form >
+    <apex:pageBlock id="block">
+      <apex:pageBlockButtons >
+        <apex:commandButton value="Save" action="{!Save}" />
+      </apex:pageBlockButtons>
+      
+      <!-- table of wrapped contacts -->
+      <apex:pageBlockTable value="{!wrappers}" var="wrap">
+        <apex:column style="width:15%" headerValue="{!$ObjectType.Contact.fields.FirstName.label}">
+          <apex:inputField value="{!wrap.cont.FirstName}" />
+        </apex:column>
+	    <apex:column style="width:15%" >
+	      <apex:facet name="header">
+	        <apex:outputText styleclass="requiredHeader" value="{!$ObjectType.Contact.fields.LastName.label}" />
+	      </apex:facet>
+          <apex:inputField value="{!wrap.cont.LastName}" required="false" />
+        </apex:column>
+        <apex:column style="width:15%" headerValue="Actions">
+          <apex:commandButton value="Delete" action="{!removeItem}" rerender="block">
+            <apex:param name="keyToDelete" value="{!wrap.key}" assignTo="{!keyToDelete}" />
+          </apex:commandButton>
+        </apex:column>
+      </apex:pageBlockTable>
+      
+      <apex:commandButton value="Add" action="{!addItems}" rerender="block" />
+      <apex:inputText size="3" value="{!addItemCount}" />
+      
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

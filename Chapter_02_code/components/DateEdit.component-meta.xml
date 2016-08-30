@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>36.0</apiVersion>
+    <description>Recipe 2_2 - component to allow the underlying elements (day, month, year) to be edited independently.</description>
+    <label>DateEdit</label>
+</ApexComponent>

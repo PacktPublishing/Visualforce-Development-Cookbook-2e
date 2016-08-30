@@ -1,0 +1,48 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 4_4
+
+	Managing attachments
+	 
+ -->
+<apex:page standardcontroller="Contact" extensions="AttachmentsExt">
+  <apex:sectionHeader title="Manage Attachments" />
+  <apex:form >
+    <apex:pageBlock mode="mainDetail">
+    
+      <apex:pageBlockSection title="Contact Detail">
+        <apex:outputField value="{!Contact.Salutation}" />
+        <apex:outputField value="{!Contact.FirstName}" />
+        <apex:outputField value="{!Contact.LastName}" />
+      </apex:pageBlockSection>
+      
+      <!-- existing attachments -->
+      <apex:pageBlockSection title="Attachments" columns="1">
+        <apex:pageBlockTable value="{!Contact.attachments}" var="attachment" >
+          <apex:column headerValue="Action">
+            <apex:commandLink action="{!deleteAttachment}" value="Del"> 
+              <apex:param name="deleteId" assignTo="{!selectedAttachmentId}" value="{!attachment.id}"/> 
+            </apex:commandLink>
+            &nbsp; 
+             <apex:outputLink value="/servlet/servlet.FileDownload?file={!attachment.id}" target="_blank">View</apex:outputLink>        
+          </apex:column>
+          <apex:column value="{!attachment.Name}" />
+          <apex:column value="{!attachment.Description}" />
+        </apex:pageBlockTable>
+      </apex:pageBlockSection>
+      
+      <!-- upload new attachment -->
+      <apex:pageBlockSection title="Upload Attachment" columns="1">
+        <apex:inputField value="{!att.Description}" style="width:80%" />
+        <apex:pageBlockSectionItem id="imagesectionitem">
+          <apex:outputLabel value="Choose File"/>
+          <apex:outputPanel >
+            <apex:inputFile id="uploadfile" value="{!att.body}" filename="{!att.Name}" /><br/>
+            <apex:commandButton value="Upload" action="{!upload}" />
+          </apex:outputPanel>
+        </apex:pageBlockSectionItem>
+      </apex:pageBlockSection> 
+      
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

@@ -1,0 +1,72 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 8_7
+
+	Table of contents sidebar
+	 
+ -->
+<apex:page applyHtmlTag="false" applyBodyTag="false" sidebar="false" showHeader="false" standardStyleSheets="false">
+  <apex:composition template="CookbookTemplateV3">
+    <apex:define name="page">
+      <apex:variable var="page" value="home"/>
+    </apex:define> 
+    <apex:define name="title">
+      Force.com Sites Recipe 7
+    </apex:define>
+    <apex:define name="sidebar">
+      <ul class="slds-list--dotted">
+            <li><a href="#chapter1"><i class="icon-arrow-right"></i> <span class="lead">Chapter 1</span></a></li>
+            <li><a href="#chapter2"><i class="icon-arrow-right"></i> <span class="lead">Chapter 2</span></a></li>
+            <li><a href="#chapter3"><i class="icon-arrow-right"></i> <span class="lead">Chapter 3</span></a></li>
+      </ul>
+    </apex:define> 
+    <apex:define name="body">
+      <ul class="slds-list--vertical">
+        <li  id="chapter1" class="slds-list__item slds-has-divider--bottom-space"><a href="/Chapter1">Chapter 1 - General Utilities</a></li>
+        <li class="slds-list__item">
+          <ul class="slds-list--vertical slds-is-nested">
+            <li class="slds-list__item">Overriding Standard Buttons</li>
+            <li class="slds-list__item">Data Driven Styling</li>
+            <li class="slds-list__item">Turning off an Action Poller</li>
+            <li class="slds-list__item">Visualforce in the Sidebar</li>
+            <li class="slds-list__item">Passing Parameters to Action Methods</li>
+            <li class="slds-list__item">Reacting to URL Parameters</li>
+            <li class="slds-list__item">Passing Parameters between Visualforce Pages</li>
+            <li class="slds-list__item">Popup Window</li>
+            <li class="slds-list__item">Launch Page</li>
+            <li class="slds-list__item">Testing a Custom Controller</li>
+            <li class="slds-list__item">Testing an Extension Controller</li>
+          </ul>
+        </li>
+        <li id="chapter2" class="slds-list__item slds-has-divider--bottom-space slds-m-top--medium">Chapter 2 - Custom Components</li>
+        <li class="slds-list__item">
+          <ul class="slds-list--vertical slds-is-nested">
+            <li class="slds-list__item">Passing Parameters to Components</li>
+            <li class="slds-list__item">Updating Parameters in Components</li>
+            <li class="slds-list__item">Passing Action Method Parameters to Components</li>
+            <li class="slds-list__item">Data Driven Decimal Places</li>
+            <li class="slds-list__item">Custom Iterator Components</li>
+            <li class="slds-list__item">Set Value into Controller</li>
+            <li class="slds-list__item">Multi-Select Related Object</li>
+            <li class="slds-list__item">Notify Parent Page Controller</li>
+          </ul>
+        </li>
+        <li  id="chapter3" class="slds-list__item slds-has-divider--bottom-space slds-m-top--medium">Chapter 3 - Capturing Data using Forms</li>
+        <li class="slds-list__item">
+          <ul class="slds-list--vertical slds-is-nested">
+            <li class="slds-list__item">Editing a record in Visualforce</li>
+            <li class="slds-list__item">Adding Error Messages to Field Inputs</li>
+            <li class="slds-list__item">Using Field Sets</li>
+            <li class="slds-list__item">Adding a Custom Lookup to a Form</li>
+            <li class="slds-list__item">Adding a Custom Date Picker to a Form</li>
+            <li class="slds-list__item">Retrieving Fields when a Lookup is Populated</li>
+            <li class="slds-list__item">Breaking Up Forms with Action Regions</li>
+            <li class="slds-list__item">“Please Wait - Working” ActionStatus</li>
+            <li class="slds-list__item">Action Chaining</li>
+          </ul>
+        </li>
+      </ul> 
+
+    </apex:define> 
+  </apex:composition>
+</apex:page>

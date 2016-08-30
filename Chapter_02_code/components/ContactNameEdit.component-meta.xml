@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>36.0</apiVersion>
+    <description>Recipe 2_1 - Re-usable component that provides edit capability for the name fields of a contact - Salutation, FirstName and LastName</description>
+    <label>ContactNameEdit</label>
+</ApexComponent>
