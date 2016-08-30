@@ -12,7 +12,7 @@ You will learn how to perform various tasks such as creating multiple records fr
 charts, using JavaScript to enhance client-side functionality, building a public website, and making data available to a
 mobile device.
 
-##Related Python/Machine Learning Products:
+##Related Salesforce Products:
 * [Visualforce Development Cookbook](https://www.packtpub.com/application-development/visualforce-development-cookbook?utm_source=github&utm_medium=repository&utm_campaign=9781782170808)
 * [Visualforce Developers Guide](https://www.packtpub.com/application-development/visualforce-developer%E2%80%99s-guide?utm_source=github&utm_medium=repository&utm_campaign=9781782170808)
 * [Learning Apex Programming](https://www.packtpub.com/application-development/learning-apex-programming?utm_source=github&utm_medium=repository&utm_campaign=9781782170808)
