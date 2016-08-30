@@ -2,7 +2,7 @@
 Visualforce Development Cookbook by Packt
 
 ##Instructions and Navigation
-This is the code repository for [Visualforce Development Cookbook](https://www.packtpub.com/big-data-and-business-intelligence/python-machine-learning-cookbook?utm_source=github&utm_medium=repository&utm_campaign=9781786464477), published by Packt. All you need is a web browser with internet connection to use this book and codes/instruction within.
+This is the code repository for [Visualforce Development Cookbook](https://www.packtpub.com/application-development/visualforce-development-cookbook-%E2%80%93-second-edition), published by Packt. All you need is a web browser with internet connection to use this book and codes/instruction within.
 
 ##Description
 Visualforce Development Cookbook provides solutions to a variety of challenges faced by Salesforce developers
