@@ -1,0 +1,32 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 1_6
+
+	Execute search based on parameter in URL
+	 
+ -->
+<apex:page controller="SearchFromURLController">
+   <apex:form >
+   
+     <!-- the search criteria block -->
+     <apex:pageBlock title="Criteria">
+       <apex:pageBlockSection >
+         <apex:pageBlockSectionItem >
+          <apex:outputLabel value="Name"/>
+          <apex:inputText value="{!name}"/>
+         </apex:pageBlockSectionItem>
+          <apex:commandButton value="Go" action="{!executeSearch}" />
+       </apex:pageBlockSection>
+     </apex:pageBlock>
+     
+     <!-- results block - conditionally rendered if a search has been executed -->
+     <apex:pageBlock title="Results" rendered="{!searched}">
+       <apex:pageBlockTable value="{!accounts}" var="account">
+         <apex:column value="{!account.name}" />
+         <apex:column value="{!account.industry}" />
+         <apex:column value="{!account.type}" />
+       </apex:pageBlockTable>
+     </apex:pageBlock>
+     
+   </apex:form>
+</apex:page>

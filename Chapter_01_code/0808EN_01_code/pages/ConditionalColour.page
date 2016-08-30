@@ -1,0 +1,21 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 1_2
+
+	Conditionally style an sobject field based on its contents
+	 
+ -->
+<apex:page StandardController="Campaign" recordSetVar="Campaigns">
+  <apex:sectionHeader title="Campaigns"/>
+  <apex:pageBlock >
+  
+    <!-- iterate the campaign records -->
+    <apex:pageBlockTable value="{!Campaigns}" var="campaign">
+      <apex:column value="{!campaign.Name}"/>
+      <apex:column value="{!campaign.BudgetedCost}"/>
+      
+      <!-- If the campaign has gone over budget, display in red, otherwise display in green -->
+      <apex:column style="color: {!IF(AND(NOT(ISNULL(campaign.ActualCost)), campaign.ActualCost<=campaign.BudgetedCost), "lawngreen", "red")}" value="{!campaign.ActualCost}"/>
+    </apex:pageBlockTable>
+  </apex:pageBlock>
+</apex:page>

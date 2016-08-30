@@ -1,0 +1,28 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 1_7
+
+	Edit the accounts identified from URL parameters
+	 
+ -->
+<apex:page controller="EditFromSearchController">
+  <apex:form >
+     <apex:pageBlock >
+        <!-- iterate the accounts and render input fields for Name, Industry and Type -->
+        <apex:pageBlockTable value="{!accs}" var="acc">
+          <apex:column headerValue="Name">
+            <apex:inputField value="{!acc.Name}"/>
+          </apex:column>
+          <apex:column headerValue="Industry">
+            <apex:inputField value="{!acc.Industry}"/>
+          </apex:column>
+          <apex:column headerValue="Type">
+            <apex:inputField value="{!acc.Type}"/>
+          </apex:column>
+        </apex:pageBlockTable>
+        
+        <!-- button to allow updates to be saved -->
+        <apex:commandButton value="Save" action="{!save}" />
+     </apex:pageBlock>
+  </apex:form>
+</apex:page>

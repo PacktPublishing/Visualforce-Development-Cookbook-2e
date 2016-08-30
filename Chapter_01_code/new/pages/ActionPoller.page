@@ -1,0 +1,27 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 1_3
+
+	Turn off an action poller based on a controller property
+	 
+ -->
+<apex:page controller="PollerController">
+  <apex:sectionHeader title="Payment Simulator" />
+  <apex:pageBlock title="Status">
+    <apex:form >
+      <!--  the poller - turned off when the paymentState becomes 'Complete' -->
+      <apex:actionPoller action="{!movePayment}" 
+           rerender="payment" interval="5" status="status" 
+           enabled="{!paymentState!='Complete'}"/>
+
+      <apex:outputPanel id="payment">
+        The status of your payment is : 
+        <apex:outputText style="font-weight: bold" 
+              value=" {!paymentState}"/>
+      </apex:outputPanel>
+      <br/>
+      <hr/>
+      <apex:actionStatus startText="Polling ..." id="status"/>
+    </apex:form>  
+  </apex:pageBlock>
+</apex:page>

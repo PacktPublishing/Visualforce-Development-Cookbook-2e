@@ -1,0 +1,25 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 1_9
+
+	Page that to check if the user has access to the 'Protected' page.
+	 
+ -->
+<apex:page controller="LaunchController" action="{!allowAccess}">
+
+    <!-- this content will only be displayed if the user does not
+         have access to the protected content page. If they do, a server 
+         side redirect will take place before this can be rendered 
+     -->
+      
+  <apex:sectionHeader title="Protected Content Launch Page" />
+  
+  <!-- styled error message -->
+  <apex:pageMessage summary="Access Denied" severity="error" strength="1" />
+  
+  <!-- error details -->
+  <p>Your administrator has not given you access to the ProtectedContent page</p> 
+  <p>If you believe you should have access, please contact 
+    <a href="mailto:keir.bowden@googlemail.com?Subject=Access%20Request%20Protected%20Page">Keir Bowden</a>.
+  </p>
+</apex:page>

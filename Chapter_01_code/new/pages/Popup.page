@@ -1,0 +1,14 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 1_8
+
+	Popup window body
+	 
+ -->
+<apex:page standardController="Account" sidebar="false" showHeader="false">
+
+  <apex:sectionHeader title="Account" subtitle="{!Account.Name}"/>
+  
+  <!-- account details via the standard detail component -->
+  <apex:detail relatedList="false"/>
+</apex:page>

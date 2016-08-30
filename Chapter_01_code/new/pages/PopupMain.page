@@ -1,0 +1,41 @@
+<!--
+	
+	Visualforce Development Cookbook Recipe 1_8
+
+	Main page that can open popups when the user clicks on a link
+	 
+ -->
+<apex:page standardController="Account" recordSetVar="accs">
+  <apex:pageBlock >
+  
+    <!-- iterate the accounts -->
+    <apex:pageBlockTable value="{!accs}" var="acc">
+      <apex:column headerValue="Action">
+      
+         <!-- link to open a popup window -->
+         <apex:outputLink title="View detail in a popup window" onclick="return openPopup('{!acc.Id}');">Details</apex:outputLink>
+         
+      </apex:column>
+      <apex:column value="{!acc.Name}" />
+      <apex:column value="{!acc.Industry}" />
+      <apex:column value="{!acc.Type}" />
+    </apex:pageBlockTable>
+    
+  </apex:pageBlock>
+  
+  <script>
+    function openPopup(id)
+    {
+        var newWin=window.open('{!$Page.Popup}?id=' + id, 'Popup',
+               'height=600,width=650,left=100,top=100,resizable=no,scrollbars=yes,toolbar=no,status=no');
+        if (window.focus) 
+        {
+            newWin.focus();
+        }
+            
+        // return false to stop the default flow in the event that this code is executed prior to a postback
+        return false;
+       
+    }
+  </script>
+</apex:page>
