@@ -13,6 +13,6 @@ charts, using JavaScript to enhance client-side functionality, building a public
 mobile device.
 
 ##Related Python/Machine Learning Products:
-* [Python Machine Learning](https://www.packtpub.com/big-data-and-business-intelligence/python-machine-learning?utm_source=github&utm_medium=repository&utm_campaign=9781783555130)
-* [Mastering Python Machine Learning](https://www.packtpub.com/big-data-and-business-intelligence/mastering-python-machine-learning?utm_source=github&utm_medium=repository&utm_campaign=9781783555130)
-* [OpenCV with Python By Example](https://www.packtpub.com/application-development/opencv-python-example?utm_source=github&utm_medium=repository&utm_campaign=9781785283932)
+* [Visualforce Development Cookbook](https://www.packtpub.com/application-development/visualforce-development-cookbook?utm_source=github&utm_medium=repository&utm_campaign=9781782170808)
+* [Visualforce Developers Guide](https://www.packtpub.com/application-development/visualforce-developer%E2%80%99s-guide?utm_source=github&utm_medium=repository&utm_campaign=9781782170808)
+* [Learning Apex Programming](https://www.packtpub.com/application-development/learning-apex-programming?utm_source=github&utm_medium=repository&utm_campaign=9781782170808)
