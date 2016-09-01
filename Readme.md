@@ -1,5 +1,5 @@
-# Visualforce Development Cookbook
-Visualforce Development Cookbook by Packt
+# Visualforce Development Cookbook (Second Edition)
+Visualforce Development Cookbook (Second Edition) by Packt. It contains all the supporting project files necessary to work through the book from start to finish.
 
 ##Instructions and Navigation
 This is the code repository for [Visualforce Development Cookbook](https://www.packtpub.com/application-development/visualforce-development-cookbook-%E2%80%93-second-edition), published by Packt. All you need is a web browser with internet connection to use this book and codes/instruction within.
