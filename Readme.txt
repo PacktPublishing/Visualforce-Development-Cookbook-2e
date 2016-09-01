@@ -1,1 +1,0 @@
-Codes/commands given in the book can be simply implemented using a web browser and doesn't need installation of any additional software
