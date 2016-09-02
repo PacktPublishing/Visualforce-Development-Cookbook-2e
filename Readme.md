@@ -3,6 +3,21 @@ Visualforce Development Cookbook (Second Edition) by Packt. It contains all the 
 
 ##Instructions and Navigation
 This is the code repository for [Visualforce Development Cookbook](https://www.packtpub.com/application-development/visualforce-development-cookbook-%E2%80%93-second-edition), published by Packt. All you need is a web browser with internet connection to use this book and codes/instruction within.
+The code samples can be added to your Salesforce instance in one of two ways:
+
+<b>Cut and Paste</b>
+Simply paste the body of the file into the online code editor, as detailed in the 
+recipe instructions.
+
+<b>Force.com IDE</b>
+If you are using the Force.com IDE (Eclipse Plugin) you can install all of the pages
+and classes in one go.
+Copy the files from the pages and classes folders to the respective pages and 
+classes folder under the src folder of your Salesforce project.
+Right click the src folder of your Salesforce project and select Refresh from the
+context menu. This will update the server with the newly added files.
+
+Please see the README files in the individual chapters for specific instructions.
 
 ##Description
 Visualforce Development Cookbook provides solutions to a variety of challenges faced by Salesforce developers
