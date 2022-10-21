@@ -33,7 +33,3 @@ mobile device.
 * [Visualforce Development Cookbook](https://www.packtpub.com/application-development/visualforce-development-cookbook?utm_source=github&utm_medium=repository&utm_campaign=9781782170808)
 * [Visualforce Developers Guide](https://www.packtpub.com/application-development/visualforce-developer%E2%80%99s-guide?utm_source=github&utm_medium=repository&utm_campaign=9781782170808)
 * [Learning Apex Programming](https://www.packtpub.com/application-development/learning-apex-programming?utm_source=github&utm_medium=repository&utm_campaign=9781782170808)
-### Download a free PDF
-
- <i>If you have already purchased a print or Kindle version of this book, you can get a DRM-free PDF version at no cost.<br>Simply click on the link to download a free PDF copy of this book.</i>
-<p align="center"> <a href="https://packt.link/free-ebook/9781782170808">https://packt.link/free-ebook/9781782170808 </a> </p>
